@@ -14,6 +14,18 @@ const StoriesPage = () => {
         My default route is named <code>stories</code>, link to me with `
         <Link to={routes.stories()}>Stories</Link>`
       </p>
+      <p>
+        <Link
+          to={routes.newStory({
+            adjective: 'colorful',
+            animal: 'dog',
+            color: 'red',
+            activity: 'running',
+          })}
+        >
+          New Story
+        </Link>
+      </p>
     </>
   )
 }
