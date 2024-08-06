@@ -14,11 +14,57 @@ generator client {
   binaryTargets = "native"
 }
 
-// Define your own datamodels here and run `yarn redwood prisma migrate dev`
-// to create migrations for them and apply to your dev DB.
-// TODO: Please remove the following example:
-model UserExample {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+model Animal {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  emoji     String
+  story     Story[]
+}
+
+model Color {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  name        String
+  code        String
+  description String
+  story       Story[]
+}
+
+model Adjective {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  emoji     String
+  story     Story[]
+}
+
+model Activity {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  emoji     String
+  story     Story[]
+}
+
+model Story {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  title       String
+  story       String
+  summary     String
+  pictureUrl  String
+  animalId    String
+  colorId     String
+  adjectiveId String
+  activityId  String
+  animal      Animal    @relation(fields: [animalId], references: [id])
+  color       Color     @relation(fields: [colorId], references: [id])
+  adjective   Adjective @relation(fields: [adjectiveId], references: [id])
+  activity    Activity  @relation(fields: [activityId], references: [id])
 }
