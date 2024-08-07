@@ -13,10 +13,10 @@ async function generatePDF(
 ): Promise<Buffer> {
   // Set custom margins (in points, 72 points = 1 inch)
   const margins = {
-    top: 72 / 3,
-    bottom: 72 / 3,
-    left: 72 / 3,
-    right: 72 / 3,
+    top: 72 / 2,
+    bottom: 72 / 2,
+    left: 72 / 2,
+    right: 72 / 2,
   }
 
   const doc = new PDFDocument({ margins })
@@ -36,10 +36,12 @@ async function generatePDF(
       if (imageResponse.ok) {
         const imageBuffer = await imageResponse.buffer()
         const pageWidth = doc.page.width
-        const imageWidth = Math.min(400, pageWidth - 100)
+        // Reduce the maximum image width by 25%
+        const imageWidth = Math.min(300, pageWidth - 100)
         const x = (pageWidth - imageWidth) / 2
-        doc.image(imageBuffer, x, doc.y, { fit: [imageWidth, 300] })
-        doc.moveDown(12)
+        // Reduce the maximum height by 25% as well
+        doc.image(imageBuffer, x, doc.y, { fit: [imageWidth, 225] })
+        doc.moveDown(9)
       }
     } catch (error) {
       logger.error('Error fetching image:', error)
@@ -53,7 +55,7 @@ async function generatePDF(
   }
 
   // Add content
-  doc.fontSize(12).text(content)
+  doc.fontSize(14).text(content)
 
   doc.end()
 
