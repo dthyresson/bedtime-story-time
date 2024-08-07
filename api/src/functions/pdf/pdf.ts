@@ -11,15 +11,23 @@ async function generatePDF(
   content: string,
   pictureUrl: string | null
 ): Promise<Buffer> {
-  const doc = new PDFDocument()
+  // Set custom margins (in points, 72 points = 1 inch)
+  const margins = {
+    top: 72 / 3,
+    bottom: 72 / 3,
+    left: 72 / 3,
+    right: 72 / 3,
+  }
+
+  const doc = new PDFDocument({ margins })
   const chunks: Buffer[] = []
 
   doc.on('data', (chunk) => chunks.push(chunk))
   doc.on('end', () => {})
 
   // Add title
-  doc.fontSize(24).text(title, { align: 'center' })
-  doc.moveDown(2)
+  doc.font('Times-Bold').fontSize(24).text(title, { align: 'center' })
+  doc.font('Times-Roman').moveDown(0.5)
 
   // Add image if available
   if (pictureUrl) {
@@ -27,8 +35,11 @@ async function generatePDF(
       const imageResponse = await fetch(pictureUrl)
       if (imageResponse.ok) {
         const imageBuffer = await imageResponse.buffer()
-        doc.image(imageBuffer, { fit: [400, 300], align: 'center' })
-        doc.moveDown(2)
+        const pageWidth = doc.page.width
+        const imageWidth = Math.min(400, pageWidth - 100)
+        const x = (pageWidth - imageWidth) / 2
+        doc.image(imageBuffer, x, doc.y, { fit: [imageWidth, 300] })
+        doc.moveDown(12)
       }
     } catch (error) {
       logger.error('Error fetching image:', error)
@@ -37,15 +48,11 @@ async function generatePDF(
 
   // Add summary if available
   if (summary) {
-    doc.fontSize(14).text('Summary:', { underline: true })
-    doc.moveDown(0.5)
-    doc.fontSize(12).text(summary)
-    doc.moveDown(2)
+    doc.font('Times-Bold').fontSize(14).text(summary)
+    doc.font('Times-Roman').moveDown(1)
   }
 
   // Add content
-  doc.fontSize(14).text('Story:', { underline: true })
-  doc.moveDown(0.5)
   doc.fontSize(12).text(content)
 
   doc.end()
@@ -81,11 +88,16 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
 
     const pdfBuffer = await generatePDF(title, summary, content, pictureUrl)
 
+    // Create a safe filename
+    const safeTitle = title.replace(/[^a-z0-9]/gi, '_').toLowerCase()
+    const timestamp = Date.now()
+    const safeFilename = `${safeTitle}_${storyId}_${timestamp}.pdf`
+
     return {
       statusCode: 200,
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `attachment; filename="story_${storyId}.pdf"`,
+        'Content-Disposition': `attachment; filename="${safeFilename}"`,
       },
       body: pdfBuffer.toString('base64'),
       isBase64Encoded: true,

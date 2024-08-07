@@ -37,7 +37,7 @@ export const handler = async (event: APIGatewayEvent) => {
     // Create a safe filename
     const safeTitle = title.replace(/[^a-z0-9]/gi, '_').toLowerCase()
     const timestamp = Date.now()
-    const safeFilename = `${id}_${safeTitle}_${timestamp}.jpg`
+    const safeFilename = `${safeTitle}_${id}_${timestamp}.jpg`
 
     // Read the entire response body as a buffer
     const buffer = await streamToBuffer(response.body)
