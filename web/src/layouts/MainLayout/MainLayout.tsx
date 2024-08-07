@@ -10,11 +10,13 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <header className="py-4">
         <nav className="flex items-center justify-between">
           <Link to={routes.stories()}>
-            <h1 className="text-2xl font-bold">Bedtime Storytime</h1>
+            <h1 className="font-serif text-2xl font-extrabold">
+              📚 Bedtime Storytime
+            </h1>
           </Link>
           <Link
             to={routes.newStory()}
-            className="rounded border border-yellow-500 bg-yellow-50 px-4 py-2 font-bold text-gray-800 hover:bg-yellow-100"
+            className="flex items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center shadow-md hover:bg-yellow-50"
           >
             Tell me a story!
           </Link>

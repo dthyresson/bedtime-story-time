@@ -18,22 +18,27 @@ export const QUERY: TypedDocumentNode<
       title
       story
       summary
+      description
       pictureUrl
       adjective {
         id
         name
+        emoji
       }
       animal {
         id
         name
+        emoji
       }
       color {
         id
         name
+        code
       }
       activity {
         id
         name
+        emoji
       }
     }
   }

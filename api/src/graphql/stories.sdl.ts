@@ -6,7 +6,7 @@ export const schema = gql`
     title: String!
     story: String!
     summary: String!
-    pictureInstruction: String!
+    description: String!
     pictureUrl: String!
     animalId: String!
     colorId: String!

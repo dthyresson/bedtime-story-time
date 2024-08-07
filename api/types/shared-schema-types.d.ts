@@ -130,8 +130,8 @@ export interface Story {
   color: Color
   colorId: string
   createdAt: DateTime
+  description: string
   id: string
-  pictureInstruction: string
   pictureUrl: string
   story: string
   summary: string

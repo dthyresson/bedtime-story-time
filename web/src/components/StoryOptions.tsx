@@ -31,6 +31,7 @@ interface StoryOptionLinkProps {
 export const StoryOptionLink: React.FC<StoryOptionLinkProps> = ({
   options,
   emoji,
+  code,
   name,
 }) => {
   const sanitizedOptions = {
@@ -41,9 +42,19 @@ export const StoryOptionLink: React.FC<StoryOptionLinkProps> = ({
   }
 
   return (
-    <li className="max-w-fit rounded-md border border-solid border-yellow-300 bg-white p-2 shadow-sm">
-      <Link to={routes.newStory(sanitizedOptions)}>
-        {emoji} {name}
+    <li className="inline-block rounded-md border border-solid border-yellow-300 bg-white p-2 shadow-sm hover:bg-yellow-50">
+      <Link to={routes.newStory(sanitizedOptions)} className="flex">
+        <div className="mr-2">
+          {code ? (
+            <p
+              className="mr-2 mt-1 h-4 w-4 rounded border border-black"
+              style={{ backgroundColor: code }}
+            />
+          ) : (
+            <p>{emoji}</p>
+          )}
+        </div>
+        <p className="">{name}</p>
       </Link>
     </li>
   )
