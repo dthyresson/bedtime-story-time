@@ -9,30 +9,33 @@ import {
 
 import { db } from 'src/lib/db'
 
-export const adjectives: AdjectivesResolver = () => {
+export const adjectives: AdjectivesResolver = async () => {
   return db.adjective.findMany({ orderBy: { name: 'asc' } })
 }
 
-export const adjective: AdjectiveResolver = ({ id }) => {
+export const adjective: AdjectiveResolver = async ({ id }) => {
   return db.adjective.findUnique({
     where: { id },
   })
 }
 
-export const createAdjective: CreateAdjectiveResolver = ({ input }) => {
+export const createAdjective: CreateAdjectiveResolver = async ({ input }) => {
   return db.adjective.create({
     data: input,
   })
 }
 
-export const updateAdjective: UpdateAdjectiveResolver = ({ id, input }) => {
+export const updateAdjective: UpdateAdjectiveResolver = async ({
+  id,
+  input,
+}) => {
   return db.adjective.update({
     data: input,
     where: { id },
   })
 }
 
-export const deleteAdjective: DeleteAdjectiveResolver = ({ id }) => {
+export const deleteAdjective: DeleteAdjectiveResolver = async ({ id }) => {
   return db.adjective.delete({
     where: { id },
   })

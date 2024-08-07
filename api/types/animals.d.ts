@@ -23,7 +23,7 @@ export interface AnimalsResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTAnimal[] | Promise<RTAnimal[]> | (() => Promise<RTAnimal[]>)
+  ): Promise<RTAnimal[]>
 }
 
 /** SDL: animal(id: String!): Animal */
@@ -35,11 +35,7 @@ export interface AnimalResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ):
-    | RTAnimal
-    | null
-    | Promise<RTAnimal | null>
-    | (() => Promise<RTAnimal | null>)
+  ): Promise<RTAnimal | null>
 }
 
 /** SDL: createAnimal(input: CreateAnimalInput!): Animal! */
@@ -51,7 +47,7 @@ export interface CreateAnimalResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTAnimal | Promise<RTAnimal> | (() => Promise<RTAnimal>)
+  ): Promise<RTAnimal>
 }
 
 /** SDL: updateAnimal(id: String!, input: UpdateAnimalInput!): Animal! */
@@ -63,7 +59,7 @@ export interface UpdateAnimalResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTAnimal | Promise<RTAnimal> | (() => Promise<RTAnimal>)
+  ): Promise<RTAnimal>
 }
 
 /** SDL: deleteAnimal(id: String!): Animal! */
@@ -75,7 +71,7 @@ export interface DeleteAnimalResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTAnimal | Promise<RTAnimal> | (() => Promise<RTAnimal>)
+  ): Promise<RTAnimal>
 }
 
 export interface AnimalTypeResolvers {

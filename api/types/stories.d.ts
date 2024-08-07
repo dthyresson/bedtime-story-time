@@ -11,6 +11,7 @@ import type { RedwoodGraphQLContext } from '@redwoodjs/graphql-server/dist/types
 
 import type {
   Story as RTStory,
+  StoryOptions as RTStoryOptions,
   Animal as RTAnimal,
   Color as RTColor,
   Adjective as RTAdjective,
@@ -19,6 +20,7 @@ import type {
 import type {
   CreateStoryInput,
   UpdateStoryInput,
+  StoryOptionsInput,
   Query,
   Mutation,
 } from './shared-schema-types'
@@ -32,7 +34,7 @@ export interface StoriesResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTStory[] | Promise<RTStory[]> | (() => Promise<RTStory[]>)
+  ): Promise<RTStory[]>
 }
 
 /** SDL: story(id: String!): Story */
@@ -44,7 +46,7 @@ export interface StoryResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTStory | null | Promise<RTStory | null> | (() => Promise<RTStory | null>)
+  ): Promise<RTStory | null>
 }
 
 /** SDL: createStory(input: CreateStoryInput!): Story! */
@@ -56,7 +58,7 @@ export interface CreateStoryResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTStory | Promise<RTStory> | (() => Promise<RTStory>)
+  ): Promise<RTStory>
 }
 
 /** SDL: updateStory(id: String!, input: UpdateStoryInput!): Story! */
@@ -68,7 +70,7 @@ export interface UpdateStoryResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTStory | Promise<RTStory> | (() => Promise<RTStory>)
+  ): Promise<RTStory>
 }
 
 /** SDL: deleteStory(id: String!): Story! */
@@ -80,7 +82,19 @@ export interface DeleteStoryResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTStory | Promise<RTStory> | (() => Promise<RTStory>)
+  ): Promise<RTStory>
+}
+
+/** SDL: storyOptions(input: StoryOptionsInput!): StoryOptions */
+export interface StoryOptionsResolver {
+  (
+    args: { input: StoryOptionsInput },
+    obj?: {
+      root: Query
+      context: RedwoodGraphQLContext
+      info: GraphQLResolveInfo
+    }
+  ): Promise<RTStoryOptions | null>
 }
 
 export interface StoryTypeResolvers {

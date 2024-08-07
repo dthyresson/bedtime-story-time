@@ -23,7 +23,7 @@ export interface AdjectivesResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTAdjective[] | Promise<RTAdjective[]> | (() => Promise<RTAdjective[]>)
+  ): Promise<RTAdjective[]>
 }
 
 /** SDL: adjective(id: String!): Adjective */
@@ -35,11 +35,7 @@ export interface AdjectiveResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ):
-    | RTAdjective
-    | null
-    | Promise<RTAdjective | null>
-    | (() => Promise<RTAdjective | null>)
+  ): Promise<RTAdjective | null>
 }
 
 /** SDL: createAdjective(input: CreateAdjectiveInput!): Adjective! */
@@ -51,7 +47,7 @@ export interface CreateAdjectiveResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTAdjective | Promise<RTAdjective> | (() => Promise<RTAdjective>)
+  ): Promise<RTAdjective>
 }
 
 /** SDL: updateAdjective(id: String!, input: UpdateAdjectiveInput!): Adjective! */
@@ -63,7 +59,7 @@ export interface UpdateAdjectiveResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTAdjective | Promise<RTAdjective> | (() => Promise<RTAdjective>)
+  ): Promise<RTAdjective>
 }
 
 /** SDL: deleteAdjective(id: String!): Adjective! */
@@ -75,7 +71,7 @@ export interface DeleteAdjectiveResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTAdjective | Promise<RTAdjective> | (() => Promise<RTAdjective>)
+  ): Promise<RTAdjective>
 }
 
 export interface AdjectiveTypeResolvers {

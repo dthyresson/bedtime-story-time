@@ -9,30 +9,30 @@ import {
 
 import { db } from 'src/lib/db'
 
-export const colors: ColorsResolver = () => {
+export const colors: ColorsResolver = async () => {
   return db.color.findMany({ orderBy: { name: 'asc' } })
 }
 
-export const color: ColorResolver = ({ id }) => {
+export const color: ColorResolver = async ({ id }) => {
   return db.color.findUnique({
     where: { id },
   })
 }
 
-export const createColor: CreateColorResolver = ({ input }) => {
+export const createColor: CreateColorResolver = async ({ input }) => {
   return db.color.create({
     data: input,
   })
 }
 
-export const updateColor: UpdateColorResolver = ({ id, input }) => {
+export const updateColor: UpdateColorResolver = async ({ id, input }) => {
   return db.color.update({
     data: input,
     where: { id },
   })
 }
 
-export const deleteColor: DeleteColorResolver = ({ id }) => {
+export const deleteColor: DeleteColorResolver = async ({ id }) => {
   return db.color.delete({
     where: { id },
   })

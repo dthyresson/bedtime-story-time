@@ -23,7 +23,7 @@ export interface ActivitiesResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTActivity[] | Promise<RTActivity[]> | (() => Promise<RTActivity[]>)
+  ): Promise<RTActivity[]>
 }
 
 /** SDL: activity(id: String!): Activity */
@@ -35,11 +35,7 @@ export interface ActivityResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ):
-    | RTActivity
-    | null
-    | Promise<RTActivity | null>
-    | (() => Promise<RTActivity | null>)
+  ): Promise<RTActivity | null>
 }
 
 /** SDL: createActivity(input: CreateActivityInput!): Activity! */
@@ -51,7 +47,7 @@ export interface CreateActivityResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTActivity | Promise<RTActivity> | (() => Promise<RTActivity>)
+  ): Promise<RTActivity>
 }
 
 /** SDL: updateActivity(id: String!, input: UpdateActivityInput!): Activity! */
@@ -63,7 +59,7 @@ export interface UpdateActivityResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTActivity | Promise<RTActivity> | (() => Promise<RTActivity>)
+  ): Promise<RTActivity>
 }
 
 /** SDL: deleteActivity(id: String!): Activity! */
@@ -75,7 +71,7 @@ export interface DeleteActivityResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTActivity | Promise<RTActivity> | (() => Promise<RTActivity>)
+  ): Promise<RTActivity>
 }
 
 export interface ActivityTypeResolvers {

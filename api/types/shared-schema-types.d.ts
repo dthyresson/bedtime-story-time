@@ -108,6 +108,7 @@ export interface Query {
   redwood?: Redwood | null
   stories: Story[]
   story?: Story | null
+  storyOptions?: StoryOptions | null
 }
 
 export interface Redwood {
@@ -134,6 +135,22 @@ export interface Story {
   summary: string
   title: string
   updatedAt: DateTime
+}
+
+export interface StoryOptions {
+  __typename?: 'StoryOptions'
+  activity?: Activity | null
+  adjective?: Adjective | null
+  animal?: Animal | null
+  color?: Color | null
+}
+
+export interface StoryOptionsInput {
+  __typename?: 'StoryOptionsInput'
+  activityId?: string | null
+  adjectiveId?: string | null
+  animalId?: string | null
+  colorId?: string | null
 }
 
 export interface UpdateActivityInput {

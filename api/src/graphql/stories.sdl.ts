@@ -17,9 +17,24 @@ export const schema = gql`
     activity: Activity!
   }
 
+  input StoryOptionsInput {
+    adjectiveId: String
+    animalId: String
+    colorId: String
+    activityId: String
+  }
+
+  type StoryOptions {
+    adjective: Adjective
+    animal: Animal
+    color: Color
+    activity: Activity
+  }
+
   type Query {
     stories: [Story!]! @requireAuth
     story(id: String!): Story @requireAuth
+    storyOptions(input: StoryOptionsInput!): StoryOptions @requireAuth
   }
 
   input CreateStoryInput {

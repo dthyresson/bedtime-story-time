@@ -9,29 +9,29 @@ import {
 
 import { db } from 'src/lib/db'
 
-export const animals: AnimalsResolver = () => {
+export const animals: AnimalsResolver = async () => {
   return db.animal.findMany({ orderBy: { name: 'asc' } })
 }
 
-export const animal: AnimalResolver = ({ id }) => {
+export const animal: AnimalResolver = async ({ id }) => {
   return db.animal.findUnique({
     where: { id },
   })
 }
 
-export const createAnimal: CreateAnimalResolver = ({ input }) => {
+export const createAnimal: CreateAnimalResolver = async ({ input }) => {
   return db.animal.create({
     data: input,
   })
 }
 
-export const updateAnimal: UpdateAnimalResolver = ({ id, input }) => {
+export const updateAnimal: UpdateAnimalResolver = async ({ id, input }) => {
   return db.animal.update({
     data: input,
     where: { id },
   })
 }
-export const deleteAnimal: DeleteAnimalResolver = ({ id }) => {
+export const deleteAnimal: DeleteAnimalResolver = async ({ id }) => {
   return db.animal.delete({
     where: { id },
   })

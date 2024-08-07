@@ -84,6 +84,7 @@ export interface Query {
   redwood?: Redwood | null
   stories: PStory[]
   story?: PStory | null
+  storyOptions?: StoryOptions | null
 }
 
 export interface Redwood {
@@ -91,6 +92,22 @@ export interface Redwood {
   currentUser?: JSON | null
   prismaVersion?: string | null
   version?: string | null
+}
+
+export interface StoryOptions {
+  __typename?: 'StoryOptions'
+  activity?: PActivity | null
+  adjective?: PAdjective | null
+  animal?: PAnimal | null
+  color?: PColor | null
+}
+
+export interface StoryOptionsInput {
+  __typename?: 'StoryOptionsInput'
+  activityId?: string | null
+  adjectiveId?: string | null
+  animalId?: string | null
+  colorId?: string | null
 }
 
 export interface UpdateActivityInput {

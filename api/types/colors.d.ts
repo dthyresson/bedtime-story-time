@@ -20,7 +20,7 @@ export interface ColorsResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTColor[] | Promise<RTColor[]> | (() => Promise<RTColor[]>)
+  ): Promise<RTColor[]>
 }
 
 /** SDL: color(id: String!): Color */
@@ -32,7 +32,7 @@ export interface ColorResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTColor | null | Promise<RTColor | null> | (() => Promise<RTColor | null>)
+  ): Promise<RTColor | null>
 }
 
 /** SDL: createColor(input: CreateColorInput!): Color! */
@@ -44,7 +44,7 @@ export interface CreateColorResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTColor | Promise<RTColor> | (() => Promise<RTColor>)
+  ): Promise<RTColor>
 }
 
 /** SDL: updateColor(id: String!, input: UpdateColorInput!): Color! */
@@ -56,7 +56,7 @@ export interface UpdateColorResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTColor | Promise<RTColor> | (() => Promise<RTColor>)
+  ): Promise<RTColor>
 }
 
 /** SDL: deleteColor(id: String!): Color! */
@@ -68,7 +68,7 @@ export interface DeleteColorResolver {
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): RTColor | Promise<RTColor> | (() => Promise<RTColor>)
+  ): Promise<RTColor>
 }
 
 export interface ColorTypeResolvers {
