@@ -24,7 +24,16 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       </header>
       {children}
       <footer className="py-4">
-        <p className="text-center text-sm text-gray-500">Made with ❤️ by DT</p>
+        <p className="text-center">
+          <a
+            className="text-sm text-gray-500 hover:text-yellow-500"
+            href="https://www.thyresson.io"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Made with ❤️ by DT
+          </a>
+        </p>
       </footer>
     </main>
   )

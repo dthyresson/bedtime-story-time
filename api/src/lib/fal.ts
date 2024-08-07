@@ -18,8 +18,46 @@ export const generatePictureUrl = async ({
   color: string
 }) => {
   const prompt = `
-    Illustrate: "${description}". in ${adjective} style. Paint the ${animal} the color ${color}.
+    Illustrate: "${description}". In ${adjective} children's story style. Paint the ${animal} the color ${color}.
   `
+  logger.debug(prompt, '>> prompt')
+
+  const falModel = 'flux/schnell'
+  // "flux/schnell";
+  // "aura-flow";
+  // fast-lightning-sdxl
+  const options = {
+    image_size: 'square',
+    num_images: 1,
+    num_inference_steps: 6,
+    enable_safety_checker: true,
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result: any = await fal.run(`fal-ai/${falModel}`, {
+    input: { prompt },
+    ...options,
+  })
+  const url = result.images[0].url
+
+  return url
+}
+
+export const generatePictureFeomSentence = async ({
+  scene,
+  adjective,
+  summary,
+  animal,
+  color,
+}: {
+  scene: string
+  adjective: string
+  summary: string
+  animal: string
+  color: string
+}) => {
+  const prompt = `Illustrate: In ${adjective} children's story style. Context: "${summary}" Scene: "${scene}. Paint the ${animal} the color ${color}."`
+
   logger.debug(prompt, '>> prompt')
 
   const falModel = 'flux/schnell'
