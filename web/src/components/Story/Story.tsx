@@ -4,6 +4,7 @@ import { Link, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
 type StoryProps = {
+  id: string
   activityId: string
   adjectiveId: string
   animalId: string
@@ -29,6 +30,7 @@ const SplitStory = ({ text }: { text: string }) => {
 }
 
 const Story = ({
+  id,
   adjectiveId,
   activityId,
   animalId,
@@ -58,6 +60,22 @@ const Story = ({
                 className="absolute inset-0 h-full w-full rounded-md object-cover shadow-md"
                 loading="lazy"
               />
+              <div className="absolute bottom-2 right-2 flex gap-2">
+                <a
+                  href={`/.redwood/functions/download?storyId=${id}`}
+                  download={`${title.replace(/\s+/g, '_')}.jpg`}
+                  className="rounded-md bg-white bg-opacity-75 px-2 py-1 text-sm font-medium text-gray-700 shadow-md hover:bg-opacity-100"
+                >
+                  🖼️ Download Image
+                </a>
+                <a
+                  href={`/.redwood/functions/pdf?storyId=${id}`}
+                  download={`${title.replace(/\s+/g, '_')}.pdf`}
+                  className="rounded-md bg-white bg-opacity-75 px-2 py-1 text-sm font-medium text-gray-700 shadow-md hover:bg-opacity-100"
+                >
+                  📄 Download PDF
+                </a>
+              </div>
             </div>
             <p className="my-2 max-w-fit text-sm text-gray-500">
               {description}

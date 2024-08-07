@@ -75,6 +75,7 @@ export const Success = ({
   } = story
   return (
     <Story
+      id={story.id}
       title={title}
       summary={summary}
       story={storyText}
