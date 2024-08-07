@@ -52,3 +52,14 @@ To prevent abuse of the operations that call AI, uses [Unkey ratelimit](https://
 * Color - because purple pandas are cute
 * Activity - what happens
 * Story - the story we save with the title, summary, description and picture
+
+## Services and API KEYS
+
+You'll need API keys for Langbase, Unkey and Fal.
+
+```env
+FAL_KEY =
+BEDTIME_STORY_WRITER_PIPE_API_KEY =
+BEDTIME_STORY_PICTURE_PIPE_API_KEY =
+UNKEY_ROOT_KEY =
+```
