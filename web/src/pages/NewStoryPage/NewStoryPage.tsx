@@ -1,54 +1,71 @@
 import { useEffect } from 'react'
 
+import type {
+  CreateStoryMutation,
+  CreateStoryMutationVariables,
+} from 'types/graphql'
+
 import { routes } from '@redwoodjs/router'
 import { navigate } from '@redwoodjs/router'
+import { useMutation } from '@redwoodjs/web'
 import { Metadata } from '@redwoodjs/web'
+import type { TypedDocumentNode } from '@redwoodjs/web'
 
 import ActivitiesCell from 'src/components/ActivitiesCell'
 import AdjectivesCell from 'src/components/AdjectivesCell'
 import AnimalsCell from 'src/components/AnimalsCell'
 import ColorsCell from 'src/components/ColorsCell'
 
-const NewStoryPage = ({
-  adjective,
-  animal,
-  color,
-  activity,
-}: {
-  adjective?: string
-  animal?: string
-  color?: string
-  activity?: string
-}) => {
-  useEffect(() => {
-    console.log('adjective', adjective)
-    console.log('animal', animal)
-    console.log('color', color)
-    console.log('activity', activity)
-    if (adjective && animal && color && activity) {
-      console.log('all options are set')
-      navigate(routes.writeStory({ adjective, animal, color, activity }))
+const CREATE_STORY_MUTATION: TypedDocumentNode<
+  CreateStoryMutation,
+  CreateStoryMutationVariables
+> = gql`
+  mutation CreateStoryMutation($input: CreateStoryInput!) {
+    createStory(input: $input) {
+      id
     }
-  }, [adjective, animal, color, activity])
+  }
+`
+
+const NewStoryPage = ({
+  adjectiveId,
+  animalId,
+  colorId,
+  activityId,
+}: {
+  adjectiveId?: string
+  animalId?: string
+  colorId?: string
+  activityId?: string
+}) => {
+  const [createStory] = useMutation(CREATE_STORY_MUTATION)
+
+  useEffect(() => {
+    console.log('adjectiveId', adjectiveId)
+    console.log('animalId', animalId)
+    console.log('colorId', colorId)
+    console.log('activityId', activityId)
+    if (adjectiveId && animalId && colorId && activityId) {
+      console.log('all options are set')
+      createStory({
+        variables: { input: { adjectiveId, animalId, colorId, activityId } },
+        onCompleted(data, _clientOptions) {
+          navigate(routes.story({ id: data.createStory.id }))
+        },
+      })
+    }
+  }, [adjectiveId, animalId, colorId, activityId, createStory])
   return (
     <>
       <Metadata title="NewStory" description="NewStory page" />
-
-      <h1>NewStoryPage</h1>
-      <p>
-        Find me in <code>./web/src/pages/NewStoryPage/NewStoryPage.tsx</code>
-      </p>
-      <p>
-        My default route is named <code>newStory</code>, link to me with `
-      </p>
-      {adjective && <p>{adjective}</p>}
-      {!adjective && <AdjectivesCell />}
-      {animal && <p>{animal}</p>}
-      {!animal && <AnimalsCell />}
-      {color && <p>{color}</p>}
-      {!color && <ColorsCell />}
-      {activity && <p>{activity}</p>}
-      {!activity && <ActivitiesCell />}
+      {adjectiveId && <p>{adjectiveId}</p>}
+      {!adjectiveId && <AdjectivesCell />}
+      {animalId && <p>{animalId}</p>}
+      {!animalId && <AnimalsCell />}
+      {colorId && <p>{colorId}</p>}
+      {!colorId && <ColorsCell />}
+      {activityId && <p>{activityId}</p>}
+      {!activityId && <ActivitiesCell />}
     </>
   )
 }

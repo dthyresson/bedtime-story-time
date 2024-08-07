@@ -1,29 +1,30 @@
 import { Link, routes } from '@redwoodjs/router'
 
 export type StoryOptions = {
-  adjective: string
-  animal: string
-  color: string
-  activity: string
+  adjectiveId: string
+  animalId: string
+  colorId: string
+  activityId: string
 }
 
 export const StoryOptionList: React.FC<React.PropsWithChildren> = ({
   children,
 }) => (
-  <ul className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2 my-2">
+  <ul className="my-2 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
     {children}
   </ul>
 )
 
 interface StoryOptionLinkProps {
   options: {
-    adjective?: string
-    animal?: string
-    color?: string
-    activity?: string
+    adjectiveId?: string
+    animalId?: string
+    colorId?: string
+    activityId?: string
   }
   code?: string
   emoji?: string
+  id: string
   name: string
 }
 
@@ -33,14 +34,14 @@ export const StoryOptionLink: React.FC<StoryOptionLinkProps> = ({
   name,
 }) => {
   const sanitizedOptions = {
-    adjective: options.adjective || '',
-    animal: options.animal || '',
-    color: options.color || '',
-    activity: options.activity || '',
+    adjectiveId: options.adjectiveId || '',
+    animalId: options.animalId || '',
+    colorId: options.colorId || '',
+    activityId: options.activityId || '',
   }
 
   return (
-    <li className="border border-solid border-yellow-300 bg-white rounded-md shadow-sm p-2 max-w-fit">
+    <li className="max-w-fit rounded-md border border-solid border-yellow-300 bg-white p-2 shadow-sm">
       <Link to={routes.newStory(sanitizedOptions)}>
         {emoji} {name}
       </Link>

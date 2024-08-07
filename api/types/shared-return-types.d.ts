@@ -46,10 +46,10 @@ export interface CreateStoryInput {
   adjectiveId: string
   animalId: string
   colorId: string
-  pictureUrl: string
-  story: string
-  summary: string
-  title: string
+  pictureUrl?: string | null
+  story?: string | null
+  summary?: string | null
+  title?: string | null
 }
 
 export interface Mutation {

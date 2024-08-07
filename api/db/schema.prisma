@@ -18,7 +18,7 @@ model Animal {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name      String
+  name      String   @unique
   emoji     String
   story     Story[]
 }
@@ -37,7 +37,7 @@ model Adjective {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name      String
+  name      String   @unique
   emoji     String
   story     Story[]
 }
@@ -46,7 +46,7 @@ model Activity {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name      String
+  name      String   @unique
   emoji     String
   story     Story[]
 }

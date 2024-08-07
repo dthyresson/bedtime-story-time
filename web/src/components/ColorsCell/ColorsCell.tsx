@@ -28,7 +28,7 @@ export const Failure = ({ error }: CellFailureProps) => (
 )
 
 export const Success = ({ colors }: CellSuccessProps<ColorsQuery>) => {
-  const { adjective, animal, activity } = useParams()
+  const { adjectiveId, animalId, activityId } = useParams()
 
   return (
     <StoryOptionList>
@@ -36,11 +36,12 @@ export const Success = ({ colors }: CellSuccessProps<ColorsQuery>) => {
         <StoryOptionLink
           key={`color-${item.id}-${item.name}`}
           options={{
-            adjective,
-            animal,
-            color: item.name,
-            activity,
+            adjectiveId,
+            animalId,
+            colorId: item.id,
+            activityId,
           }}
+          id={item.id}
           code={item.code}
           name={item.name}
         />

@@ -31,18 +31,19 @@ export const Failure = ({ error }: CellFailureProps) => (
 )
 
 export const Success = ({ adjectives }: CellSuccessProps<AdjectivesQuery>) => {
-  const { animal, color, activity } = useParams()
+  const { animalId, colorId, activityId } = useParams()
   return (
     <StoryOptionList>
       {adjectives.map((item) => (
         <StoryOptionLink
           key={`adjective-${item.id}-${item.name}`}
           options={{
-            adjective: item.name,
-            animal,
-            color,
-            activity,
+            adjectiveId: item.id,
+            animalId,
+            colorId,
+            activityId,
           }}
+          id={item.id}
           emoji={item.emoji}
           name={item.name}
         />

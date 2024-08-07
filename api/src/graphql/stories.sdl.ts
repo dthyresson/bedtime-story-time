@@ -23,10 +23,10 @@ export const schema = gql`
   }
 
   input CreateStoryInput {
-    title: String!
-    story: String!
-    summary: String!
-    pictureUrl: String!
+    title: String
+    story: String
+    summary: String
+    pictureUrl: String
     animalId: String!
     colorId: String!
     adjectiveId: String!

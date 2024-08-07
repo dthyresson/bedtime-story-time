@@ -31,18 +31,19 @@ export const Failure = ({ error }: CellFailureProps) => (
 )
 
 export const Success = ({ animals }: CellSuccessProps<AnimalsQuery>) => {
-  const { adjective, color, activity } = useParams()
+  const { adjectiveId, colorId, activityId } = useParams()
   return (
     <StoryOptionList>
       {animals.map((item) => (
         <StoryOptionLink
           key={`animal-${item.id}-${item.name}`}
           options={{
-            adjective,
-            color,
-            activity,
-            animal: item.name,
+            adjectiveId,
+            colorId,
+            activityId,
+            animalId: item.id,
           }}
+          id={item.id}
           emoji={item.emoji}
           name={item.name}
         />
