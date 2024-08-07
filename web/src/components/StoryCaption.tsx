@@ -12,7 +12,7 @@ export const StoryCaption = ({
   const parts = []
 
   if (adjective) parts.push(`your ${adjective.name} story`)
-  if (color && animal) parts.push(`about the ${color.name} ${animal.name} who`)
+  if (color && animal) parts.push(`about the ${color.name} ${animal.name}`)
   else if (animal) parts.push(`about the ${animal.name}`)
   else if (color) parts.push(`about something ${color.name}`)
   if (activity) parts.push(`who ${activity.name}`)

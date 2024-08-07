@@ -64,6 +64,7 @@ export const createStory: CreateStoryResolver = async ({ input }) => {
         title: story.title,
         story: story.story,
         summary: story.summary,
+        description,
         pictureUrl: await generatePictureUrl({
           description,
           adjective: adjective.name,

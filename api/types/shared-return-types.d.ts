@@ -46,6 +46,7 @@ export interface CreateStoryInput {
   adjectiveId: string
   animalId: string
   colorId: string
+  pictureInstruction?: string | null
   pictureUrl?: string | null
   story?: string | null
   summary?: string | null
@@ -141,6 +142,7 @@ export interface UpdateStoryInput {
   adjectiveId?: string | null
   animalId?: string | null
   colorId?: string | null
+  pictureInstruction?: string | null
   pictureUrl?: string | null
   story?: string | null
   summary?: string | null

@@ -6,6 +6,7 @@ export const schema = gql`
     title: String!
     story: String!
     summary: String!
+    pictureInstruction: String!
     pictureUrl: String!
     animalId: String!
     colorId: String!
@@ -41,6 +42,7 @@ export const schema = gql`
     title: String
     story: String
     summary: String
+    pictureInstruction: String
     pictureUrl: String
     animalId: String!
     colorId: String!
@@ -53,6 +55,7 @@ export const schema = gql`
     story: String
     summary: String
     pictureUrl: String
+    pictureInstruction: String
     animalId: String
     colorId: String
     adjectiveId: String

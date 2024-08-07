@@ -60,6 +60,7 @@ model Story {
   title       String
   story       String
   summary     String
+  description String
   pictureUrl  String
   animalId    String
   colorId     String

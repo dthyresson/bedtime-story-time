@@ -18,7 +18,7 @@ export const generatePictureUrl = async ({
   color: string
 }) => {
   const prompt = `
-  Illustrate: "${description}". in ${adjective} style. paint the ${animal} the color ${color}.
+    Illustrate: "${description}". in ${adjective} style. Paint the ${animal} the color ${color}.
   `
   logger.debug(prompt, '>> prompt')
 
