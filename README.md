@@ -1,10 +1,8 @@
 # Bedtime Storytime
 
+<img width="1282" alt="image" src="https://github.com/user-attachments/assets/766e9682-8cdf-431d-9f45-446f7f7e76f4">
 
-
-![image.png](https://imagedelivery.net/iHX6Ovru0O7AjmyT5yZRoA/8eaea732-a794-4811-3521-594b6915fa00/public)
-
-Inspired from a RedwoodJS demo I mde last year, this adds generative art powered by Fal to the bedtime story maker.
+Write a bedtime strory using RedwoodJS and AI.
 
 Start writing a story by picking
 
