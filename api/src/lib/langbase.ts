@@ -1,12 +1,6 @@
 // import { Pipe } from 'langbase'
 import { logger } from 'src/lib/logger'
 
-const BEDTIME_STORY_WRITER_PIPE_API_KEY =
-  'pipe_2y6P3WY5bEtRc3RV5ApcNWwCdLkFPEZuss9jQVsSvpK89or5XYsH2tuY5HsXizZ7hVrDJyRbZtTqDYgEKC56Eyt'
-
-const BEDTIME_STORY_PICTURE_PIPE_API_KEY =
-  'pipe_4LNkv4aSf9ZCDQgwA6JgS1CgFaSC1cN9v7PUdNbfqguNB8X5YJpwGVdF4UtJu9vgBAbNWcAFqCbiLkwhT5Ev2xNy'
-
 export const bedtimeStoryWriter = async ({
   adjective,
   animal,
@@ -18,7 +12,12 @@ export const bedtimeStoryWriter = async ({
   color: string
   activity: string
 }) => {
+  if (!process.env.BEDTIME_STORY_WRITER_PIPE_API_KEY) {
+    throw new Error('BEDTIME_STORY_WRITER_PIPE_API_KEY is not set')
+  }
+
   const url = 'https://api.langbase.com/beta/generate'
+  const auth = `Bearer ${process.env.BEDTIME_STORY_WRITER_PIPE_API_KEY}`
 
   const data = {
     stream: false,
@@ -44,20 +43,23 @@ export const bedtimeStoryWriter = async ({
 
   logger.debug(data, '>> bedtimeStoryWriter data')
 
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: auth,
+  }
+  const body = JSON.stringify(data)
+
+  logger.debug({ headers, body }, '>> bedtimeStoryWriter request data')
+
   const response = await fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${BEDTIME_STORY_WRITER_PIPE_API_KEY}`,
-    },
-    body: JSON.stringify(data),
+    headers,
+    body,
   })
 
-  logger.debug(response, '>> bedtimeStoryWriter response')
-
   if (!response.ok) {
-    console.error('Failed to generate bedtime story')
-    return
+    console.error({ response }, 'Bad response from bedtimeStoryWriter')
+    throw new Error('Bad response from bedtimeStoryWriter')
   }
 
   if (response.ok) {
@@ -84,8 +86,12 @@ export const bedtimeStoryPicture = async ({
   color: string
   summary: string
 }) => {
-  const url = 'https://api.langbase.com/beta/generate'
+  if (!process.env.BEDTIME_STORY_PICTURE_PIPE_API_KEY) {
+    throw new Error('BEDTIME_STORY_PICTURE_PIPE_API_KEY is not set')
+  }
 
+  const url = 'https://api.langbase.com/beta/generate'
+  const auth = `Bearer ${process.env.BEDTIME_STORY_PICTURE_PIPE_API_KEY}`
   const data = {
     stream: false,
     variables: [
@@ -96,13 +102,18 @@ export const bedtimeStoryPicture = async ({
     ],
   }
 
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: auth,
+  }
+  const body = JSON.stringify(data)
+
+  logger.debug({ headers, body }, '>> bedtimeStoryPicture request data')
+
   const response = await fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${BEDTIME_STORY_PICTURE_PIPE_API_KEY}`,
-    },
-    body: JSON.stringify(data),
+    headers,
+    body,
   })
 
   if (!response.ok) {

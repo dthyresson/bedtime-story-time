@@ -1,24 +1,26 @@
 import * as fal from '@fal-ai/serverless-client'
 
+import { logger } from 'src/lib/logger'
 fal.config({
   // Can also be auto-configured using environment variables:
   credentials: process.env.FAL_KEY,
 })
 
 export const generatePictureUrl = async ({
-  summary,
+  description,
   adjective,
   animal,
   color,
 }: {
-  summary: string
+  description: string
   adjective: string
   animal: string
   color: string
 }) => {
   const prompt = `
-  Illustrate: "${summary}". in ${adjective} style. paint the ${animal} the color ${color}.
+  Illustrate: "${description}". in ${adjective} style. paint the ${animal} the color ${color}.
   `
+  logger.debug(prompt, '>> prompt')
 
   const falModel = 'flux/schnell'
   // "flux/schnell";

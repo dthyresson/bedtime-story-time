@@ -8,10 +8,6 @@ const StoryPage = ({ id }: { id: string }) => {
     <>
       <Metadata title="Story" description="Story page" />
 
-      <h1>StoryPage</h1>
-      <p>
-        Find me in <code>./web/src/pages/StoryPage/StoryPage.tsx</code>
-      </p>
       <StoryCell id={id} />
     </>
   )

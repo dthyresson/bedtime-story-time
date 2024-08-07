@@ -31,6 +31,8 @@ model Color {
   code        String
   description String
   story       Story[]
+
+  @@unique([name, code])
 }
 
 model Adjective {

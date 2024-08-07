@@ -28,55 +28,60 @@ export const story: StoryResolver = async ({ id }) => {
 }
 
 export const createStory: CreateStoryResolver = async ({ input }) => {
-  const adjective = await db.adjective.findUnique({
-    where: { id: input.adjectiveId },
-  })
-  const animal = await db.animal.findUnique({
-    where: { id: input.animalId },
-  })
-  const color = await db.color.findUnique({
-    where: { id: input.colorId },
-  })
-  const activity = await db.activity.findUnique({
-    where: { id: input.activityId },
-  })
+  try {
+    const adjective = await db.adjective.findUnique({
+      where: { id: input.adjectiveId },
+    })
+    const animal = await db.animal.findUnique({
+      where: { id: input.animalId },
+    })
+    const color = await db.color.findUnique({
+      where: { id: input.colorId },
+    })
+    const activity = await db.activity.findUnique({
+      where: { id: input.activityId },
+    })
 
-  const generatedStory = await bedtimeStoryWriter({
-    adjective: adjective.name,
-    animal: animal.name,
-    color: color.name,
-    activity: activity.name,
-  })
-
-  const buildStory = async ({ story, input }) => {
-    logger.debug({ input, story }, '>>> buildStory')
-
-    const { description } = await bedtimeStoryPicture({
+    const generatedStory = await bedtimeStoryWriter({
       adjective: adjective.name,
       animal: animal.name,
       color: color.name,
-      summary: story.summary,
+      activity: activity.name,
     })
 
-    return {
-      ...input,
-      title: story.title,
-      story: story.story,
-      summary: story.summary,
-      pictureUrl: await generatePictureUrl({
-        summary: story.summary,
+    const buildStory = async ({ story, input }) => {
+      logger.debug({ input, story }, '>>> buildStory')
+
+      const { description } = await bedtimeStoryPicture({
         adjective: adjective.name,
         animal: animal.name,
         color: color.name,
-      }),
-    }
-  }
+        summary: story.summary,
+      })
 
-  const data = await buildStory({ story: generatedStory, input })
-  logger.debug(data, '>>> createStory data')
-  return db.story.create({
-    data,
-  })
+      return {
+        ...input,
+        title: story.title,
+        story: story.story,
+        summary: story.summary,
+        pictureUrl: await generatePictureUrl({
+          description,
+          adjective: adjective.name,
+          animal: animal.name,
+          color: color.name,
+        }),
+      }
+    }
+
+    const data = await buildStory({ story: generatedStory, input })
+    logger.debug(data, '>>> createStory data')
+    return db.story.create({
+      data,
+    })
+  } catch (error) {
+    logger.error(error, '>>> createStory error')
+    throw error
+  }
 }
 
 export const updateStory: UpdateStoryResolver = async ({ id, input }) => {
@@ -94,28 +99,28 @@ export const deleteStory: DeleteStoryResolver = async ({ id }) => {
 
 export const storyOptions: StoryOptionsResolver = async ({ input }) => {
   const adjective =
-    input.adjectiveId !== ''
+    input.adjectiveId !== '' && input.adjectiveId !== undefined
       ? await db.adjective.findUnique({
           where: { id: input.adjectiveId },
         })
       : null
 
   const animal =
-    input.animalId !== ''
+    input.animalId !== '' && input.animalId !== undefined
       ? await db.animal.findUnique({
           where: { id: input.animalId },
         })
       : null
 
   const color =
-    input.colorId !== ''
+    input.colorId !== '' && input.colorId !== undefined
       ? await db.color.findUnique({
           where: { id: input.colorId },
         })
       : null
 
   const activity =
-    input.activityId !== ''
+    input.activityId !== '' && input.activityId !== undefined
       ? await db.activity.findUnique({
           where: { id: input.activityId },
         })
