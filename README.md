@@ -63,3 +63,9 @@ BEDTIME_STORY_WRITER_PIPE_API_KEY =
 BEDTIME_STORY_PICTURE_PIPE_API_KEY =
 UNKEY_ROOT_KEY =
 ```
+
+## Scripts
+
+* `yarn rw exec seed` seed animals, adjectives, activities and colors
+* `yarn rw exec db_backup` backup sqlite db
+* `yarn rw exec csv` export db data to csv
