@@ -66,14 +66,14 @@ const Story = ({
                   download={`${title.replace(/\s+/g, '_')}.jpg`}
                   className="rounded-md bg-white bg-opacity-75 px-2 py-1 text-sm font-medium text-gray-700 shadow-md hover:bg-opacity-100"
                 >
-                  🖼️ Download Image
+                  🖼️ Image
                 </a>
                 <a
                   href={`/.redwood/functions/pdf?storyId=${id}`}
                   download={`${title.replace(/\s+/g, '_')}.pdf`}
                   className="rounded-md bg-white bg-opacity-75 px-2 py-1 text-sm font-medium text-gray-700 shadow-md hover:bg-opacity-100"
                 >
-                  📄 Download PDF
+                  📄 PDF
                 </a>
               </div>
             </div>
