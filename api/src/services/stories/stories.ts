@@ -13,12 +13,24 @@ import { generatePictureUrl } from 'src/lib/fal'
 import { bedtimeStoryPicture, bedtimeStoryWriter } from 'src/lib/langbase'
 import { logger } from 'src/lib/logger'
 
-export const stories: StoriesResolver = async () => {
-  return db.story.findMany({
+export const stories: StoriesResolver = async ({ page = 1, limit = 20 }) => {
+  const offset = (page - 1) * limit
+  const items = await db.story.findMany({
     orderBy: {
       createdAt: 'desc',
     },
+    take: limit,
+    skip: offset,
   })
+
+  const count = await db.story.count()
+
+  return {
+    items,
+    count,
+    page,
+    limit,
+  }
 }
 
 export const story: StoryResolver = async ({ id }) => {

@@ -11,7 +11,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         <nav className="flex items-center justify-between">
           <Link to={routes.stories()}>
             <h1 className="font-serif text-2xl font-extrabold">
-              📚 Bedtime Storytime
+              📒 Bedtime Storytime
             </h1>
           </Link>
           <Link

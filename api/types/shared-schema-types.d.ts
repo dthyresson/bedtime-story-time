@@ -96,6 +96,14 @@ export interface Mutation {
   updateStory: Story
 }
 
+export interface PaginatedStories {
+  __typename?: 'PaginatedStories'
+  count: number
+  items: Story[]
+  limit: number
+  page: number
+}
+
 export interface Query {
   __typename?: 'Query'
   activities: Activity[]
@@ -107,7 +115,7 @@ export interface Query {
   color?: Color | null
   colors: Color[]
   redwood?: Redwood | null
-  stories: Story[]
+  stories: PaginatedStories
   story?: Story | null
   storyOptions?: StoryOptions | null
 }

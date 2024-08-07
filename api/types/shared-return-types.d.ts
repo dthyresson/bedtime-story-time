@@ -72,6 +72,14 @@ export interface Mutation {
   updateStory: PStory
 }
 
+export interface PaginatedStories {
+  __typename?: 'PaginatedStories'
+  count: number
+  items: PStory[]
+  limit: number
+  page: number
+}
+
 export interface Query {
   __typename?: 'Query'
   activities: PActivity[]
@@ -83,7 +91,7 @@ export interface Query {
   color?: PColor | null
   colors: PColor[]
   redwood?: Redwood | null
-  stories: PStory[]
+  stories: PaginatedStories
   story?: PStory | null
   storyOptions?: StoryOptions | null
 }

@@ -18,6 +18,13 @@ export const schema = gql`
     activity: Activity!
   }
 
+  type PaginatedStories {
+    items: [Story!]!
+    count: Int!
+    page: Int!
+    limit: Int!
+  }
+
   input StoryOptionsInput {
     adjectiveId: String
     animalId: String
@@ -33,7 +40,7 @@ export const schema = gql`
   }
 
   type Query {
-    stories: [Story!]! @skipAuth
+    stories(page: Int, limit: Int): PaginatedStories! @skipAuth
     story(id: String!): Story @skipAuth
     storyOptions(input: StoryOptionsInput!): StoryOptions @skipAuth
   }

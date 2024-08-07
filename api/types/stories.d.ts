@@ -10,6 +10,7 @@ import type { GraphQLResolveInfo } from 'graphql'
 import type { RedwoodGraphQLContext } from '@redwoodjs/graphql-server/dist/types'
 
 import type {
+  PaginatedStories as RTPaginatedStories,
   Story as RTStory,
   StoryOptions as RTStoryOptions,
   Animal as RTAnimal,
@@ -25,16 +26,16 @@ import type {
   Mutation,
 } from './shared-schema-types'
 
-/** SDL: stories: [Story!]! */
+/** SDL: stories(limit: Int, page: Int): PaginatedStories! */
 export interface StoriesResolver {
   (
-    args?: object,
+    args?: { limit?: number; page?: number },
     obj?: {
       root: Query
       context: RedwoodGraphQLContext
       info: GraphQLResolveInfo
     }
-  ): Promise<RTStory[]>
+  ): Promise<RTPaginatedStories>
 }
 
 /** SDL: story(id: String!): Story */
