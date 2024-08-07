@@ -1,6 +1,8 @@
 # Bedtime Storytime
 
-<img width="1282" alt="image" src="https://github.com/user-attachments/assets/766e9682-8cdf-431d-9f45-446f7f7e76f4">
+<img width="1283" alt="image" src="https://github.com/user-attachments/assets/ba6f845d-8614-4014-801d-34847c55b7bd">
+
+<img width="1282" alt="image" src="https://github.com/user-attachments/assets/05962432-cfc9-44a6-93bd-ce52267af935">
 
 Write a bedtime strory using RedwoodJS and AI.
 
