@@ -9,6 +9,7 @@ import type {
 } from 'types/stories'
 
 import { db } from 'src/lib/db'
+import { bedtimeStoryPicture, bedtimeStoryWriter } from 'src/lib/langbase'
 import { logger } from 'src/lib/logger'
 
 export const stories: StoriesResolver = async () => {
@@ -26,19 +27,49 @@ export const story: StoryResolver = async ({ id }) => {
 }
 
 export const createStory: CreateStoryResolver = async ({ input }) => {
-  // simulate a 20 second delay
-  await new Promise((resolve) => setTimeout(resolve, 5_000))
-  const buildStory = (input) => {
+  const adjective = await db.adjective.findUnique({
+    where: { id: input.adjectiveId },
+  })
+  const animal = await db.animal.findUnique({
+    where: { id: input.animalId },
+  })
+  const color = await db.color.findUnique({
+    where: { id: input.colorId },
+  })
+  const activity = await db.activity.findUnique({
+    where: { id: input.activityId },
+  })
+
+  const generatedStory = await bedtimeStoryWriter({
+    adjective: adjective.name,
+    animal: animal.name,
+    color: color.name,
+    activity: activity.name,
+  })
+
+  const buildStory = async ({ story, input }) => {
+    logger.debug({ input, story }, '>>> buildStory')
+
+    const { description } = await bedtimeStoryPicture({
+      adjective: adjective.name,
+      animal: animal.name,
+      color: color.name,
+      summary: story.summary,
+    })
+
     return {
       ...input,
-      title: `The ${input.adjectiveId} ${input.animalId} ${input.colorId} ${input.activityId} story`,
-      story: `Once upon a time, there was a ${input.adjectiveId} ${input.animalId} who lived in a ${input.colorId} ${input.activityId}.`,
-      summary: `Summary of ${input.adjectiveId} ${input.animalId} ${input.colorId} ${input.activityId}`,
-      pictureUrl: `${input.adjectiveId}-${input.animalId}-${input.colorId}-${input.activityId}.png`,
+      title: story.title,
+      story: story.story,
+      summary: story.summary,
+      pictureUrl: description,
     }
   }
+
+  const data = await buildStory({ story: generatedStory, input })
+  logger.debug(data, '>>> createStory data')
   return db.story.create({
-    data: buildStory(input),
+    data,
   })
 }
 
@@ -90,8 +121,6 @@ export const storyOptions: StoryOptionsResolver = async ({ input }) => {
     color,
     activity,
   }
-
-  logger.debug(options, '>>> storyOptions')
 
   return options
 }
