@@ -8,7 +8,7 @@
  * See https://redwoodjs.com/docs/authentication for more info.
  */
 export const isAuthenticated = () => {
-  return true
+  return false
 }
 
 export const hasRole = ({ roles }) => {

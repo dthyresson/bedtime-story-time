@@ -6070,6 +6070,43 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@unkey/api@npm:^0.24.0":
+  version: 0.24.0
+  resolution: "@unkey/api@npm:0.24.0"
+  dependencies:
+    "@unkey/rbac": "npm:^0.3.1"
+  checksum: 10c0/acabca3a2f5c0c97088db0ae0c0853d0f20c9a18acb904d4dda32e6a35f6508441d6f2d9cdcfc7957496901a9c5947c590a0d35a3cfbc3b140816b26d0cc42be
+  languageName: node
+  linkType: hard
+
+"@unkey/error@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@unkey/error@npm:0.2.0"
+  dependencies:
+    zod: "npm:^3.23.5"
+  checksum: 10c0/90ac6d878d5bb512020ccb06a5659b252c7aac03510b306af1d728d35ca901926dd49ee4422724cfa23e20068153cdef9e943b7316ef833829fa52960ca75ab8
+  languageName: node
+  linkType: hard
+
+"@unkey/ratelimit@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "@unkey/ratelimit@npm:0.4.1"
+  dependencies:
+    "@unkey/api": "npm:^0.24.0"
+  checksum: 10c0/420910e63795b9db8ac0366b6da6b4dde7888cae1dbef026280a9ba7d29a8e62c530b4de134a71e6d611a53d45f5a76675ecc96de690449932e96de5fa9dc6f9
+  languageName: node
+  linkType: hard
+
+"@unkey/rbac@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "@unkey/rbac@npm:0.3.1"
+  dependencies:
+    "@unkey/error": "npm:^0.2.0"
+    zod: "npm:^3.23.5"
+  checksum: 10c0/4a029791fe22e18048cc5d6342dffde61c47b2759a36d91c43ecaa2b384b53f4d1ac8ca90e7aad2e6abfa3db241591440889df7aff07493c14e4e30f31a3c5de
+  languageName: node
+  linkType: hard
+
 "@vitejs/plugin-react@npm:4.2.1":
   version: 4.2.1
   resolution: "@vitejs/plugin-react@npm:4.2.1"
@@ -6988,6 +7025,7 @@ __metadata:
     "@fal-ai/serverless-client": "npm:^0.14.0"
     "@redwoodjs/api": "npm:7.7.3"
     "@redwoodjs/graphql-server": "npm:7.7.3"
+    "@unkey/ratelimit": "npm:^0.4.1"
     langbase: "npm:0.2.5"
     prisma: "npm:5.18.0"
   languageName: unknown
@@ -21968,7 +22006,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.23.8":
+"zod@npm:^3.23.5, zod@npm:^3.23.8":
   version: 3.23.8
   resolution: "zod@npm:3.23.8"
   checksum: 10c0/8f14c87d6b1b53c944c25ce7a28616896319d95bc46a9660fe441adc0ed0a81253b02b5abdaeffedbeb23bdd25a0bf1c29d2c12dd919aef6447652dd295e3e69

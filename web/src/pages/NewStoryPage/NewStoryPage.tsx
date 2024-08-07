@@ -100,7 +100,9 @@ const NewStoryPage = ({
   return (
     <>
       <Metadata title="NewStory" description="NewStory page" />
-      {writingError && <p>{writingError}</p>}
+      {writingError && (
+        <p className="px-4 font-bold text-red-500">{writingError}</p>
+      )}
       {!writing && !writingError && <StoryCaption {...data?.storyOptions} />}
 
       {writing && (

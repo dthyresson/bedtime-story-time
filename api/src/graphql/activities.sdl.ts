@@ -9,8 +9,8 @@ export const schema = gql`
   }
 
   type Query {
-    activities: [Activity!]! @requireAuth
-    activity(id: String!): Activity @requireAuth
+    activities: [Activity!]! @skipAuth
+    activity(id: String!): Activity @skipAuth
   }
 
   input CreateActivityInput {
@@ -24,9 +24,8 @@ export const schema = gql`
   }
 
   type Mutation {
-    createActivity(input: CreateActivityInput!): Activity! @requireAuth
-    updateActivity(id: String!, input: UpdateActivityInput!): Activity!
-      @requireAuth
-    deleteActivity(id: String!): Activity! @requireAuth
+    createActivity(input: CreateActivityInput!): Activity! @blocked
+    updateActivity(id: String!, input: UpdateActivityInput!): Activity! @blocked
+    deleteActivity(id: String!): Activity! @blocked
   }
 `

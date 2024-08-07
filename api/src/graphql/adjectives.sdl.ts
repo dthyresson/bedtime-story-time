@@ -9,8 +9,8 @@ export const schema = gql`
   }
 
   type Query {
-    adjectives: [Adjective!]! @requireAuth
-    adjective(id: String!): Adjective @requireAuth
+    adjectives: [Adjective!]! @skipAuth
+    adjective(id: String!): Adjective @skipAuth
   }
 
   input CreateAdjectiveInput {
@@ -24,9 +24,9 @@ export const schema = gql`
   }
 
   type Mutation {
-    createAdjective(input: CreateAdjectiveInput!): Adjective! @requireAuth
+    createAdjective(input: CreateAdjectiveInput!): Adjective! @blocked
     updateAdjective(id: String!, input: UpdateAdjectiveInput!): Adjective!
-      @requireAuth
-    deleteAdjective(id: String!): Adjective! @requireAuth
+      @blocked
+    deleteAdjective(id: String!): Adjective! @blocked
   }
 `

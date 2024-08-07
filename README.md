@@ -27,6 +27,24 @@ Stories get saved to `stories` in SQLite for viewing, searching and maybe sharin
 
 You then get a bedtime story to enjoy!
 
+## Langbase
+
+⌘ Langbase helps developers ship composable hyper-personalized AI apps and features.
+
+Start by building AI assistants Pipes Then create managed semantic memory (RAG) so your AI can talk to your data
+
+⌘ Langbase is the composable infrastructure and developer experience to build, collaborate, and deploy any AI apps/features. Our mission is to make AI accessible to everyone, any developer not just AI/ML experts. We are the only composable AI infrastructure.
+
+Uses a [Pipe](https://langbase.com/docs/pipe/overview) for prompts to generte the story and the descriptive instructions to generate to picture.
+
+## Fal
+
+Uses [fal}(https://fal.ai/) to generate the story picture.
+
+## RateLimiting
+
+To prevent abuse of the operations that call AI, uses [Unkey ratelimit](https://www.unkey.com/docs/ratelimiting/introduction) and a custom validator directive: `@rateLimited(identifier: "createStory")`
+
 ## Data Models
 
 * Adjective - story style

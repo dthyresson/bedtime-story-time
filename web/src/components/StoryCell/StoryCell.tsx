@@ -14,6 +14,7 @@ export const QUERY: TypedDocumentNode<
 > = gql`
   query FindStoryQuery($id: String!) {
     story: story(id: $id) {
+      __typename
       id
       title
       story
@@ -21,21 +22,25 @@ export const QUERY: TypedDocumentNode<
       description
       pictureUrl
       adjective {
+        __typename
         id
         name
         emoji
       }
       animal {
+        __typename
         id
         name
         emoji
       }
       color {
+        __typename
         id
         name
         code
       }
       activity {
+        __typename
         id
         name
         emoji
@@ -57,5 +62,28 @@ export const Failure = ({
 export const Success = ({
   story,
 }: CellSuccessProps<FindStoryQuery, FindStoryQueryVariables>) => {
-  return <Story {...story} />
+  const {
+    title,
+    summary,
+    story: storyText,
+    description,
+    pictureUrl,
+    adjective,
+    animal,
+    color,
+    activity,
+  } = story
+  return (
+    <Story
+      title={title}
+      summary={summary}
+      story={storyText}
+      description={description}
+      pictureUrl={pictureUrl}
+      activityId={activity.id}
+      adjectiveId={adjective.id}
+      animalId={animal.id}
+      colorId={color.id}
+    />
+  )
 }

@@ -10,8 +10,8 @@ export const schema = gql`
   }
 
   type Query {
-    colors: [Color!]! @requireAuth
-    color(id: String!): Color @requireAuth
+    colors: [Color!]! @skipAuth
+    color(id: String!): Color @skipAuth
   }
 
   input CreateColorInput {
@@ -27,8 +27,8 @@ export const schema = gql`
   }
 
   type Mutation {
-    createColor(input: CreateColorInput!): Color! @requireAuth
-    updateColor(id: String!, input: UpdateColorInput!): Color! @requireAuth
-    deleteColor(id: String!): Color! @requireAuth
+    createColor(input: CreateColorInput!): Color! @blocked
+    updateColor(id: String!, input: UpdateColorInput!): Color! @blocked
+    deleteColor(id: String!): Color! @blocked
   }
 `

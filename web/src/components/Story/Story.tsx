@@ -1,19 +1,17 @@
 import { split } from 'sentence-splitter'
-import { Adjective, Activity, Animal, Color } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 
 type StoryProps = {
-  id: string
+  activityId: string
+  adjectiveId: string
+  animalId: string
+  colorId: string
   title: string
-  story: string
   summary: string
   description: string
+  story: string
   pictureUrl: string
-  adjective: Adjective
-  activity: Activity
-  animal: Animal
-  color: Color
 }
 
 const SplitStory = ({ text }: { text: string }) => {
@@ -30,10 +28,10 @@ const SplitStory = ({ text }: { text: string }) => {
 }
 
 const Story = ({
-  adjective,
-  activity,
-  animal,
-  color,
+  adjectiveId,
+  activityId,
+  animalId,
+  colorId,
   description,
   title,
   story,
@@ -62,10 +60,10 @@ const Story = ({
             <Link
               className="flex items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center shadow-md hover:bg-yellow-50"
               to={routes.newStory({
-                activityId: activity.id,
-                adjectiveId: adjective.id,
-                animalId: animal.id,
-                colorId: color.id,
+                activityId,
+                adjectiveId,
+                animalId,
+                colorId,
               })}
             >
               🎉 Again!
@@ -73,9 +71,9 @@ const Story = ({
             <Link
               className="flex items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center shadow-md hover:bg-yellow-50"
               to={routes.newStory({
-                activityId: activity.id,
-                adjectiveId: adjective.id,
-                animalId: animal.id,
+                activityId,
+                adjectiveId,
+                animalId,
               })}
             >
               🔄 Color
@@ -83,9 +81,9 @@ const Story = ({
             <Link
               className="flex items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center shadow-md hover:bg-yellow-50"
               to={routes.newStory({
-                activityId: activity.id,
-                adjectiveId: adjective.id,
-                colorId: color.id,
+                activityId,
+                adjectiveId,
+                colorId,
               })}
             >
               🔄 Animal
@@ -93,9 +91,9 @@ const Story = ({
             <Link
               className="flex items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center shadow-md hover:bg-yellow-50"
               to={routes.newStory({
-                adjectiveId: adjective.id,
-                animalId: animal.id,
-                colorId: color.id,
+                adjectiveId,
+                animalId,
+                colorId,
               })}
             >
               🔄 Activity

@@ -9,8 +9,8 @@ export const schema = gql`
   }
 
   type Query {
-    animals: [Animal!]! @requireAuth
-    animal(id: String!): Animal @requireAuth
+    animals: [Animal!]! @skipAuth
+    animal(id: String!): Animal @skipAuth
   }
 
   input CreateAnimalInput {
@@ -24,8 +24,8 @@ export const schema = gql`
   }
 
   type Mutation {
-    createAnimal(input: CreateAnimalInput!): Animal! @requireAuth
-    updateAnimal(id: String!, input: UpdateAnimalInput!): Animal! @requireAuth
-    deleteAnimal(id: String!): Animal! @requireAuth
+    createAnimal(input: CreateAnimalInput!): Animal! @blocked
+    updateAnimal(id: String!, input: UpdateAnimalInput!): Animal! @blocked
+    deleteAnimal(id: String!): Animal! @blocked
   }
 `

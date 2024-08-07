@@ -33,9 +33,9 @@ export const schema = gql`
   }
 
   type Query {
-    stories: [Story!]! @requireAuth
-    story(id: String!): Story @requireAuth
-    storyOptions(input: StoryOptionsInput!): StoryOptions @requireAuth
+    stories: [Story!]! @skipAuth
+    story(id: String!): Story @skipAuth
+    storyOptions(input: StoryOptionsInput!): StoryOptions @skipAuth
   }
 
   input CreateStoryInput {
@@ -63,8 +63,9 @@ export const schema = gql`
   }
 
   type Mutation {
-    createStory(input: CreateStoryInput!): Story! @requireAuth
-    updateStory(id: String!, input: UpdateStoryInput!): Story! @requireAuth
-    deleteStory(id: String!): Story! @requireAuth
+    createStory(input: CreateStoryInput!): Story!
+      @rateLimited(identifier: "createStory")
+    updateStory(id: String!, input: UpdateStoryInput!): Story! @blocked
+    deleteStory(id: String!): Story! @blocked
   }
 `
