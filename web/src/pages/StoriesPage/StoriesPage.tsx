@@ -5,7 +5,10 @@ import StoriesCell from 'src/components/StoriesCell'
 const StoriesPage = () => {
   return (
     <>
-      <Metadata title="Stories" description="Stories page" />
+      <Metadata
+        title="All Stories"
+        description="Pick a story to read or write your own."
+      />
 
       <StoriesCell />
     </>

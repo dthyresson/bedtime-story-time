@@ -99,7 +99,10 @@ const NewStoryPage = ({
   }, [adjectiveId, animalId, colorId, activityId, createStory])
   return (
     <>
-      <Metadata title="NewStory" description="NewStory page" />
+      <Metadata
+        title="Write a Story"
+        description="Pick your animal, color, activity and style."
+      />
       {writingError && (
         <p className="px-4 font-bold text-red-500">{writingError}</p>
       )}

@@ -18,7 +18,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             to={routes.newStory()}
             className="flex items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center shadow-md hover:bg-yellow-50"
           >
-            Tell me a story!
+            ✨ Tell me a story!
           </Link>
         </nav>
       </header>

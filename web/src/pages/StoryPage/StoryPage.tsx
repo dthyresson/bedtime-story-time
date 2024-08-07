@@ -6,7 +6,7 @@ import StoryCell from 'src/components/StoryCell'
 const StoryPage = ({ id }: { id: string }) => {
   return (
     <>
-      <Metadata title="Story" description="Story page" />
+      <Metadata title="Read aStory" />
 
       <StoryCell id={id} />
     </>
