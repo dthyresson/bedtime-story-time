@@ -64,15 +64,15 @@ const Story = ({
             </p>
           </div>
           <div className="order-first lg:order-none">
-            <nav className="flex gap-4">
+            <nav className="flex flex-wrap gap-2 sm:gap-4">
               <Link
-                className="flex items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center shadow-md hover:bg-yellow-50"
+                className="flex-grow basis-[calc(50%-0.5rem)] items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center text-sm shadow-md hover:bg-yellow-50 sm:basis-auto sm:text-base"
                 to={routes.newStory()}
               >
                 ✨ New
               </Link>
               <Link
-                className="flex items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center shadow-md hover:bg-yellow-50"
+                className="flex-grow basis-[calc(50%-0.5rem)] items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center text-sm shadow-md hover:bg-yellow-50 sm:basis-auto sm:text-base"
                 to={routes.newStory({
                   activityId,
                   adjectiveId,
@@ -83,7 +83,7 @@ const Story = ({
                 🎉 Again!
               </Link>
               <Link
-                className="flex items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center shadow-md hover:bg-yellow-50"
+                className="flex-grow basis-[calc(50%-0.5rem)] items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center text-sm shadow-md hover:bg-yellow-50 sm:basis-auto sm:text-base"
                 to={routes.newStory({
                   activityId,
                   adjectiveId,
@@ -93,7 +93,7 @@ const Story = ({
                 🔄 Color
               </Link>
               <Link
-                className="flex items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center shadow-md hover:bg-yellow-50"
+                className="flex-grow basis-[calc(50%-0.5rem)] items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center text-sm shadow-md hover:bg-yellow-50 sm:basis-auto sm:text-base"
                 to={routes.newStory({
                   activityId,
                   adjectiveId,
@@ -103,7 +103,7 @@ const Story = ({
                 🔄 Animal
               </Link>
               <Link
-                className="flex items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center shadow-md hover:bg-yellow-50"
+                className="flex-grow basis-[calc(50%-0.5rem)] items-center justify-center rounded-md border border-yellow-300 bg-white p-2 text-center text-sm shadow-md hover:bg-yellow-50 sm:basis-auto sm:text-base"
                 to={routes.newStory({
                   adjectiveId,
                   animalId,

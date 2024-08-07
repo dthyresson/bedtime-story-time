@@ -109,7 +109,7 @@ const NewStoryPage = ({
       {!writing && !writingError && <StoryCaption {...data?.storyOptions} />}
 
       {writing && (
-        <div className="flex h-[80vh] items-center justify-center">
+        <div className="flex h-[60vh] items-center justify-center lg:h-[80vh]">
           <div className="max-w-full animate-pulse">
             <StoryCaption {...data?.storyOptions} />
           </div>
