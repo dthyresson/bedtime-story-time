@@ -9,6 +9,7 @@ import type {
 } from 'types/stories'
 
 import { db } from 'src/lib/db'
+import { generatePictureUrl } from 'src/lib/fal'
 import { bedtimeStoryPicture, bedtimeStoryWriter } from 'src/lib/langbase'
 import { logger } from 'src/lib/logger'
 
@@ -62,7 +63,12 @@ export const createStory: CreateStoryResolver = async ({ input }) => {
       title: story.title,
       story: story.story,
       summary: story.summary,
-      pictureUrl: description,
+      pictureUrl: await generatePictureUrl({
+        summary: story.summary,
+        adjective: adjective.name,
+        animal: animal.name,
+        color: color.name,
+      }),
     }
   }
 
