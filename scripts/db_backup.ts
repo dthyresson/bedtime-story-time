@@ -13,15 +13,17 @@ export default async ({ args }) => {
   const timestamp = new Date()
     .toISOString()
     .replace(/[-:Z]/g, '')
-    .substring(0, 16)
+    .substring(0, 15)
+  console.log(timestamp)
   const backupPath = path.join(
     getPaths().base,
-    `exports/backups/dev.db.${timestamp}.backup`
+    `exports/backups/db_backup.db.${timestamp}.backup`
   )
+
   // zip backupPath
   const zipPath = path.join(
     getPaths().base,
-    `exports/backups/dev.db.${timestamp}.zip`
+    `exports/backups/db_backup.db.${timestamp}.zip`
   )
   fs.copyFileSync(dbPath, backupPath)
   fs.createReadStream(backupPath)
