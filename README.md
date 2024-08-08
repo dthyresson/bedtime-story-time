@@ -4,14 +4,14 @@
 
 <img width="1282" alt="image" src="https://github.com/user-attachments/assets/05962432-cfc9-44a6-93bd-ce52267af935">
 
-Write a bedtime strory using RedwoodJS and AI.
+Write a bedtime story using RedwoodJS and AI.
 
 Start writing a story by picking
 
 * a style (spooky, colorful, adventurous ...)
 * an animal (penguin, mouse, unicorn, whale ...)
 * a color for the animal
-* and activity (befriends aliens, goes to the doctor, rides a rollercoaster, bakes a cake for friends)
+* and an activity (befriends aliens, goes to the doctor, rides a rollercoaster, bakes a cake for friends)
 
 It uses Langbase and OpenAI to write a children's bedtime story
 
@@ -31,19 +31,23 @@ You then get a bedtime story to enjoy!
 
 ## Langbase
 
-⌘ Langbase helps developers ship composable hyper-personalized AI apps and features.
-
-Start by building AI assistants Pipes Then create managed semantic memory (RAG) so your AI can talk to your data
-
 ⌘ Langbase is the composable infrastructure and developer experience to build, collaborate, and deploy any AI apps/features. Our mission is to make AI accessible to everyone, any developer not just AI/ML experts. We are the only composable AI infrastructure.
 
-Uses a [Pipe](https://langbase.com/docs/pipe/overview) for prompts to generte the story and the descriptive instructions to generate to picture.
+Uses [Pipes](https://langbase.com/docs/pipe/overview) for composable prompts.
+
+The [Story Writer Pipe](https://langbase.com/dthyresson/bedtime-story-writer) generates the story and the [Picture Pipe](https://langbase.com/dthyresson/bedtime-story-picture) generates the the descriptive instructions to generate the picture. We'll send that to Fal to generate the picture.
+
+You'll need to fork these Pipes to use them.
 
 ## Fal
 
-Uses [fal}(https://fal.ai/) to generate the story picture.
+[fal](https://fal.ai/) powers the AI image generation.
 
-## Unkey and RateLimiting
+Uses the [Fal API](https://fal.ai/docs/api/introduction) to generate the picture.
+
+Currently using the [FLUX.1 [schnell]](https://fal.ai/models/fal-ai/flux/schnell) model.
+
+## Unkey and Rate Limiting
 
 To prevent abuse of the operations that call AI, uses [Unkey ratelimit](https://www.unkey.com/docs/ratelimiting/introduction) and a custom validator directive: `@rateLimited(identifier: "createStory")`
 
@@ -55,7 +59,7 @@ To prevent abuse of the operations that call AI, uses [Unkey ratelimit](https://
 * Activity - what happens
 * Story - the story we save with the title, summary, description and picture
 
-## Services and API KEYS
+## Third Party Services and API Keys
 
 You'll need API keys for Langbase, Unkey and Fal.
 
@@ -75,6 +79,8 @@ If you want to backup the database, run `yarn rw exec db_backup`
 You can also restore the database by unzipping the backup file in the `exports/backups` directory and replacing the `db/dev.db` file.
 
 ## Scripts
+
+Handy scripts:
 
 * `yarn rw exec seed` seed animals, adjectives, activities and colors
 * `yarn rw exec db_backup` backup sqlite db
