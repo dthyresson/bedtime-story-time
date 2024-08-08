@@ -24,7 +24,7 @@ const Routes = () => {
         <Route path="/new/{adjectiveId}/{animalId}" page={NewStoryPage} name="pickColor" />
         <Route path="/new/{adjectiveId}/{animalId}/{colorId}" page={NewStoryPage} name="pickActivity" />
         <Route path="/story/{id}" page={StoryPage} name="story" />
-
+        <Route path="/about" page={AboutPage} name="about" />
         <Route notfound page={NotFoundPage} />
       </Set>
     </Router>

@@ -29,7 +29,7 @@ import type {
 /** SDL: stories(limit: Int, page: Int): PaginatedStories! */
 export interface StoriesResolver {
   (
-    args?: { limit?: number; page?: number },
+    args: { limit?: number; page?: number },
     obj?: {
       root: Query
       context: RedwoodGraphQLContext

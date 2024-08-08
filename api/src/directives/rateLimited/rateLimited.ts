@@ -5,7 +5,7 @@ import {
 } from '@redwoodjs/graphql-server'
 
 import { logger } from 'src/lib/logger'
-import { StoryWriteRatelimit } from 'src/lib/unkey'
+import { StoryWriterRatelimit } from 'src/lib/unkey'
 
 export const schema = gql`
   """
@@ -15,7 +15,7 @@ export const schema = gql`
 `
 
 const validate: ValidatorDirectiveFunc = async ({ directiveArgs }) => {
-  const limit = await StoryWriteRatelimit.limit(directiveArgs.identifier)
+  const limit = await StoryWriterRatelimit.limit(directiveArgs.identifier)
   if (!limit.success) {
     logger.warn(
       {

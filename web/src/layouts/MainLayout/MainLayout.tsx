@@ -23,17 +23,54 @@ const MainLayout = ({ children }: MainLayoutProps) => {
         </nav>
       </header>
       {children}
-      <footer className="py-4">
-        <p className="text-center">
+      <footer className="flex items-center justify-between py-4">
+        <div className="text-sm text-gray-500">
           <a
-            className="text-sm text-gray-500 hover:text-yellow-500"
+            className="hover:text-yellow-500"
             href="https://www.thyresson.io"
             target="_blank"
             rel="noreferrer"
           >
             Made with ❤️ by DT
           </a>
-        </p>
+        </div>
+        <div className="space-x-4 text-sm text-gray-500">
+          <Link to={routes.about()} className="hover:text-yellow-500">
+            How it Works!
+          </Link>
+          <a
+            href="https://www.redwoodjs.com"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-yellow-500"
+          >
+            RedwoodJS
+          </a>
+          <a
+            href="https://www.langbase.com"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-yellow-500"
+          >
+            Langbase
+          </a>
+          <a
+            href="https://www.fal.ai"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-yellow-500"
+          >
+            Fal.ai
+          </a>
+          <a
+            href="https://www.unkey.com"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-yellow-500"
+          >
+            Unkey
+          </a>
+        </div>
       </footer>
     </main>
   )
