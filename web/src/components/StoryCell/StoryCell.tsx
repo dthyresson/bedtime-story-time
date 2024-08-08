@@ -21,6 +21,7 @@ export const QUERY: TypedDocumentNode<
       summary
       description
       pictureUrl
+      language
       adjective {
         __typename
         id
@@ -72,6 +73,7 @@ export const Success = ({
     animal,
     color,
     activity,
+    language,
   } = story
   return (
     <Story
@@ -81,6 +83,7 @@ export const Success = ({
       story={storyText}
       description={description}
       pictureUrl={pictureUrl}
+      language={language}
       activityId={activity.id}
       adjectiveId={adjective.id}
       animalId={animal.id}

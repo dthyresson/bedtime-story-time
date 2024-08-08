@@ -2,8 +2,9 @@ import { useState } from 'react'
 
 import type { StoriesQuery, StoriesQueryVariables } from 'types/graphql'
 
+import { Link, routes } from '@redwoodjs/router'
 import type {
-  CellSuccessProps,
+  // CellSuccessProps,
   CellFailureProps,
   TypedDocumentNode,
 } from '@redwoodjs/web'
@@ -11,12 +12,19 @@ import { useQuery } from '@redwoodjs/web'
 
 import StoryCard from 'src/components/StoryCard/StoryCard'
 
+export const beforeQuery = (props) => {
+  return {
+    variables: props,
+    // fetchPolicy: 'cache-and-network'
+  }
+}
+
 export const QUERY: TypedDocumentNode<
   StoriesQuery,
   StoriesQueryVariables
 > = gql`
-  query StoriesQuery($page: Int, $limit: Int) {
-    stories(page: $page, limit: $limit) {
+  query StoriesQuery($page: Int, $limit: Int, $language: String) {
+    stories(page: $page, limit: $limit, language: $language) {
       items {
         id
         title
@@ -43,25 +51,41 @@ export const QUERY: TypedDocumentNode<
       count
       page
       limit
+      language
     }
   }
 `
 
 export const Loading = () => <div>Loading...</div>
 
-export const Empty = () => <div>Empty</div>
+export const Empty = () => {
+  return (
+    <div>
+      <Link to={routes.stories({ language: 'en' })}>English</Link>
+      <Link to={routes.stories({ language: 'fr' })}>French</Link>
+      <Link to={routes.stories({ language: 'de' })}>German</Link>
+      <Link to={routes.stories({ language: 'es' })}>Spanish</Link>
+      <Link to={routes.stories({ language: 'se' })}>Swedish</Link>
+    </div>
+  )
+}
 
 export const Failure = ({ error }: CellFailureProps) => (
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
 )
 
-export const Success = ({ stories }: CellSuccessProps<StoriesQuery>) => {
+export const Success = ({ stories, language }) => {
+  const [currentLanguage, setCurrentLanguage] = useState(language)
   const [currentPage, setCurrentPage] = useState(stories.page)
   const { data, loading, error } = useQuery<
     StoriesQuery,
     StoriesQueryVariables
   >(QUERY, {
-    variables: { page: currentPage, limit: stories.limit },
+    variables: {
+      page: currentPage,
+      limit: stories.limit,
+      language: currentLanguage,
+    },
   })
 
   if (loading) return <Loading />
@@ -77,8 +101,20 @@ export const Success = ({ stories }: CellSuccessProps<StoriesQuery>) => {
     }
   }
 
+  const handleLanguageChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const newLanguage = event.target.value
+    setCurrentLanguage(newLanguage)
+    setCurrentPage(1)
+    // refetch({ page: 1, language: newLanguage })
+  }
   return (
     <>
+      <LanguageSelector
+        language={currentLanguage}
+        onLanguageChange={handleLanguageChange}
+      />
       <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {data.stories.items.map((item) => (
           <StoryCard key={`story-${item.id}`} {...item} />
@@ -90,6 +126,18 @@ export const Success = ({ stories }: CellSuccessProps<StoriesQuery>) => {
         onPageChange={handlePageChange}
       />
     </>
+  )
+}
+
+const LanguageSelector = ({ language, onLanguageChange }) => {
+  return (
+    <select value={language} onChange={onLanguageChange}>
+      <option value="en">English</option>
+      <option value="fr">French</option>
+      <option value="de">German</option>
+      <option value="es">Spanish</option>
+      <option value="se">Swedish</option>
+    </select>
   )
 }
 

@@ -2,7 +2,7 @@ import { Metadata } from '@redwoodjs/web'
 
 import StoriesCell from 'src/components/StoriesCell'
 
-const StoriesPage = () => {
+const StoriesPage = ({ language }: { language: string }) => {
   return (
     <>
       <Metadata
@@ -10,7 +10,7 @@ const StoriesPage = () => {
         description="Pick a story to read or write your own."
       />
 
-      <StoriesCell />
+      <StoriesCell language={language} page={1} limit={10} />
     </>
   )
 }

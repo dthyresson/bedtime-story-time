@@ -133,3 +133,57 @@ export const bedtimeStoryPicture = async ({
 
   throw new Error('Failed to generate bedtime picture instructions')
 }
+
+export const bedtimeStoryTranslator = async ({
+  title,
+  summary,
+  story,
+  description,
+  language,
+}: {
+  title: string
+  summary: string
+  story: string
+  description: string
+  language: string
+}) => {
+  if (!process.env.BEDTIME_STORY_TRANSLATOR_PIPE_API_KEY) {
+    throw new Error('BEDTIME_STORY_TRANSLATOR_PIPE_API_KEY is not set')
+  }
+
+  const url = 'https://api.langbase.com/beta/generate'
+  const auth = `Bearer ${process.env.BEDTIME_STORY_TRANSLATOR_PIPE_API_KEY}`
+
+  const data = {
+    stream: false,
+    variables: [
+      { name: 'title', value: title },
+      { name: 'summary', value: summary },
+      { name: 'story', value: story },
+      { name: 'description', value: description },
+      { name: 'language', value: language },
+    ],
+  }
+
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: auth,
+  }
+  const body = JSON.stringify(data)
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers,
+    body,
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to translate story')
+  }
+
+  const { completion } = await response.json()
+
+  logger.debug(completion, '>> bedtimeStoryTranslator result')
+
+  return JSON.parse(completion)
+}

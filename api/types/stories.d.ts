@@ -22,14 +22,15 @@ import type {
   CreateStoryInput,
   UpdateStoryInput,
   StoryOptionsInput,
+  TranslateStoryInput,
   Query,
   Mutation,
 } from './shared-schema-types'
 
-/** SDL: stories(limit: Int, page: Int): PaginatedStories! */
+/** SDL: stories(language: String, limit: Int, page: Int): PaginatedStories! */
 export interface StoriesResolver {
   (
-    args: { limit?: number; page?: number },
+    args: { language?: string; limit?: number; page?: number },
     obj?: {
       root: Query
       context: RedwoodGraphQLContext
@@ -96,6 +97,18 @@ export interface StoryOptionsResolver {
       info: GraphQLResolveInfo
     }
   ): Promise<RTStoryOptions | null>
+}
+
+/** SDL: translateStory(input: TranslateStoryInput!): String! */
+export interface TranslateStoryResolver {
+  (
+    args: { input: TranslateStoryInput },
+    obj?: {
+      root: Mutation
+      context: RedwoodGraphQLContext
+      info: GraphQLResolveInfo
+    }
+  ): Promise<string>
 }
 
 export interface StoryTypeResolvers {

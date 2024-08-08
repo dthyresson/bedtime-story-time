@@ -12,6 +12,7 @@ export const schema = gql`
     colorId: String!
     adjectiveId: String!
     activityId: String!
+    language: String!
     animal: Animal!
     color: Color!
     adjective: Adjective!
@@ -23,6 +24,7 @@ export const schema = gql`
     count: Int!
     page: Int!
     limit: Int!
+    language: String!
   }
 
   input StoryOptionsInput {
@@ -40,7 +42,8 @@ export const schema = gql`
   }
 
   type Query {
-    stories(page: Int, limit: Int): PaginatedStories! @skipAuth
+    stories(language: String, page: Int, limit: Int): PaginatedStories!
+      @skipAuth
     story(id: String!): Story @skipAuth
     storyOptions(input: StoryOptionsInput!): StoryOptions @skipAuth
   }
@@ -69,10 +72,17 @@ export const schema = gql`
     activityId: String
   }
 
+  input TranslateStoryInput {
+    id: String!
+    language: String!
+  }
+
   type Mutation {
     createStory(input: CreateStoryInput!): Story!
       @rateLimited(identifier: "createStory")
     updateStory(id: String!, input: UpdateStoryInput!): Story! @blocked
     deleteStory(id: String!): Story! @blocked
+    translateStory(input: TranslateStoryInput!): String!
+      @rateLimited(identifier: "translateStory")
   }
 `

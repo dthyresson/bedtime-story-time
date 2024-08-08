@@ -3,6 +3,7 @@ import type {
   StoryTypeResolvers,
   StoryResolver,
   StoryOptionsResolver,
+  TranslateStoryResolver,
   CreateStoryResolver,
   UpdateStoryResolver,
   DeleteStoryResolver,
@@ -10,12 +11,21 @@ import type {
 
 import { db } from 'src/lib/db'
 import { generatePictureUrl } from 'src/lib/fal'
-import { bedtimeStoryPicture, bedtimeStoryWriter } from 'src/lib/langbase'
+import {
+  bedtimeStoryPicture,
+  bedtimeStoryWriter,
+  bedtimeStoryTranslator,
+} from 'src/lib/langbase'
 import { logger } from 'src/lib/logger'
 
-export const stories: StoriesResolver = async ({ page = 1, limit = 20 }) => {
+export const stories: StoriesResolver = async ({
+  page = 1,
+  limit = 20,
+  language = 'en',
+}) => {
   const offset = (page - 1) * limit
   const items = await db.story.findMany({
+    where: { language },
     orderBy: {
       createdAt: 'desc',
     },
@@ -23,13 +33,15 @@ export const stories: StoriesResolver = async ({ page = 1, limit = 20 }) => {
     skip: offset,
   })
 
-  const count = await db.story.count()
+  const count = await db.story.count({ where: { language } })
 
+  logger.debug({ count, page, limit, language }, '>>> stories')
   return {
     items,
     count,
     page,
     limit,
+    language,
   }
 }
 
@@ -162,4 +174,43 @@ export const Story: StoryTypeResolvers = {
   activity: (_obj, { root }) => {
     return db.story.findUnique({ where: { id: root?.id } }).activity()
   },
+}
+
+export const translateStory: TranslateStoryResolver = async ({ input }) => {
+  const { id, language } = input
+
+  logger.debug({ id, language }, '>>> translateStory')
+
+  const existingStory = await db.story.findUnique({ where: { id } })
+
+  if (!existingStory) {
+    throw new Error('Story not found')
+  }
+
+  const translatedStory = await bedtimeStoryTranslator({
+    title: existingStory.title,
+    summary: existingStory.summary,
+    story: existingStory.story,
+    description: existingStory.description,
+    language,
+  })
+
+  const { title, summary, description, story } = translatedStory
+
+  const newStory = await db.story.create({
+    data: {
+      title,
+      summary,
+      description,
+      story,
+      language,
+      pictureUrl: existingStory.pictureUrl,
+      animal: { connect: { id: existingStory.animalId } },
+      color: { connect: { id: existingStory.colorId } },
+      adjective: { connect: { id: existingStory.adjectiveId } },
+      activity: { connect: { id: existingStory.activityId } },
+    },
+  })
+
+  return newStory.id
 }

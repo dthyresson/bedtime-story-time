@@ -62,6 +62,7 @@ model Story {
   summary     String
   description String
   pictureUrl  String
+  language    String    @default("en")
   animalId    String
   colorId     String
   adjectiveId String

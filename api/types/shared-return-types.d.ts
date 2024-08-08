@@ -65,6 +65,7 @@ export interface Mutation {
   deleteAnimal: PAnimal
   deleteColor: PColor
   deleteStory: PStory
+  translateStory: string
   updateActivity: PActivity
   updateAdjective: PAdjective
   updateAnimal: PAnimal
@@ -76,6 +77,7 @@ export interface PaginatedStories {
   __typename?: 'PaginatedStories'
   count: number
   items: PStory[]
+  language: string
   limit: number
   page: number
 }
@@ -117,6 +119,12 @@ export interface StoryOptionsInput {
   adjectiveId?: string | null
   animalId?: string | null
   colorId?: string | null
+}
+
+export interface TranslateStoryInput {
+  __typename?: 'TranslateStoryInput'
+  id: string
+  language: string
 }
 
 export interface UpdateActivityInput {
