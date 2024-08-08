@@ -66,6 +66,14 @@ BEDTIME_STORY_PICTURE_PIPE_API_KEY =
 UNKEY_ROOT_KEY =
 ```
 
+## Database
+
+Uses SQLite for the database.
+
+If you want to backup the database, run `yarn rw exec db_backup`
+
+You can also restore the database by unzipping the backup file in the `exports/backups` directory and replacing the `db/dev.db` file.
+
 ## Scripts
 
 * `yarn rw exec seed` seed animals, adjectives, activities and colors
