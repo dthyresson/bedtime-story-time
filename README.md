@@ -43,7 +43,7 @@ Uses a [Pipe](https://langbase.com/docs/pipe/overview) for prompts to generte th
 
 Uses [fal}(https://fal.ai/) to generate the story picture.
 
-## RateLimiting
+## Unkey and RateLimiting
 
 To prevent abuse of the operations that call AI, uses [Unkey ratelimit](https://www.unkey.com/docs/ratelimiting/introduction) and a custom validator directive: `@rateLimited(identifier: "createStory")`
 
