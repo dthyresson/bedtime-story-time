@@ -1,6 +1,8 @@
 import { Link, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 
+import Markdown from 'src/components/Markdown/Markdown'
+
 import AboutCard from './AboutCard'
 
 const AboutPage = () => {
@@ -9,11 +11,6 @@ const AboutPage = () => {
       <Metadata title="About" description="About Bedtime Storytime" />
 
       <div className="container mx-auto px-4 py-8">
-        <p className="mb-8 text-center font-serif text-xl font-bold text-gray-600">
-          Where every night is a new adventure, and every story is as unique as
-          your child.
-        </p>
-
         <h1 className="mb-6 text-center font-serif text-5xl font-bold text-gray-800">
           Bedtime Storytime
         </h1>
@@ -22,16 +19,13 @@ const AboutPage = () => {
           Personalized AI-Powered Bedtime Stories
         </h2>
 
-        <p className="mb-4 text-center font-serif text-lg text-gray-600">
+        <p className="mx-auto mb-4  text-center font-serif text-lg text-gray-600">
           Welcome to Bedtime Storytime, a magical app that brings the joy of
           personalized bedtime stories to children and parents alike. Using
           cutting-edge AI technology and a delightful user interface, we create
           unique, colorful tales tailored to your child&apos;s imagination.
         </p>
 
-        <h2 className="mb-6 mt-10 text-center font-serif text-3xl font-semibold text-gray-900">
-          How It Works
-        </h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <AboutCard
             icon={
@@ -90,12 +84,6 @@ const AboutPage = () => {
             title="Visual Delight"
             description="An AI-generated image brings your story to life, creating a complete experience."
           />
-        </div>
-
-        <h2 className="mb-6 mt-10 text-center font-serif text-3xl font-semibold text-gray-900">
-          Key Features
-        </h2>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <AboutCard
             icon={
               <svg
@@ -256,16 +244,16 @@ const AboutPage = () => {
           </li>
         </ul>
 
-        <h2 className="mb-3 mt-6 text-2xl font-semibold">
-          Behind the Scenes: Story Generation
+        <h2 className="mb-3 mt-6 text-2xl font-semibold text-gray-900">
+          Story Generation
         </h2>
         <p className="mb-4">
           The heart of Bedtime Storytime lies in its AI-powered story
           generation. Here&apos;s a glimpse into how we create each unique tale:
         </p>
-        <pre className="overflow-x-auto rounded-md bg-gray-100 p-4">
-          <code className="language-typescript">
-            {`export const bedtimeStoryWriter = async ({
+        <Markdown>
+          {`\`\`\`ts
+export const bedtimeStoryWriter = async ({
   adjective,
   animal,
   color,
@@ -301,8 +289,7 @@ const AboutPage = () => {
 
   throw new Error('Failed to generate bedtime story')
 }`}
-          </code>
-        </pre>
+        </Markdown>
 
         <p className="mt-4">
           This function sends your chosen story elements to our Langbase AI
@@ -314,9 +301,9 @@ const AboutPage = () => {
         <p className="mb-4">
           To bring your story to life visually, we use Fal.ai:
         </p>
-        <pre className="overflow-x-auto rounded-md bg-gray-100 p-4">
-          <code className="language-typescript">
-            {`export const generatePictureUrl = async ({
+        <Markdown>
+          {`\`\`\`ts
+export const generatePictureUrl = async ({
   description,
   adjective,
   animal,
@@ -341,8 +328,7 @@ const AboutPage = () => {
 
   return result.images[0].url
 }`}
-          </code>
-        </pre>
+        </Markdown>
 
         <p className="mt-4">
           This function takes the story description and key elements to generate
@@ -360,9 +346,9 @@ const AboutPage = () => {
           This directive is used to prevent access to certain fields, queries,
           or mutations.
         </p>
-        <pre className="overflow-x-auto rounded-md bg-gray-100 p-4">
-          <code className="language-typescript">
-            {`import {
+        <Markdown>
+          {`\`\`\`ts
+import {
   AuthenticationError,
   createValidatorDirective,
   ValidatorDirectiveFunc,
@@ -393,8 +379,7 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs }) => {
 const blocked = createValidatorDirective(schema, validate)
 
 export default blocked`}
-          </code>
-        </pre>
+        </Markdown>
 
         <h3 className="mb-2 mt-6 text-xl font-semibold">
           @rateLimited Directive
@@ -403,9 +388,8 @@ export default blocked`}
           This directive is used to implement rate limiting on specific fields,
           queries, or mutations.
         </p>
-        <pre className="overflow-x-auto rounded-md bg-gray-100 p-4">
-          <code className="language-typescript">
-            {`import { AuthenticationError } from '@redwoodjs/graphql-server'
+        <Markdown>
+          {`\`\`\`ts import { AuthenticationError } from '@redwoodjs/graphql-server'
 import {
   createValidatorDirective,
   ValidatorDirectiveFunc,
@@ -440,23 +424,20 @@ const validate: ValidatorDirectiveFunc = async ({ directiveArgs }) => {
 const rateLimited = createValidatorDirective(schema, validate)
 
 export default rateLimited`}
-          </code>
-        </pre>
+        </Markdown>
 
         <p className="mt-4">
           These directives are applied in our GraphQL schema, as seen in the
           stories SDL:
         </p>
-        <pre className="overflow-x-auto rounded-md bg-gray-100 p-4">
-          <code className="language-typescript">
-            {`type Mutation {
+        <Markdown>
+          {`\`\`\`graphql type Mutation {
   createStory(input: CreateStoryInput!): Story!
     @rateLimited(identifier: "createStory")
   updateStory(id: String!, input: UpdateStoryInput!): Story! @blocked
   deleteStory(id: String!): Story! @blocked
 }`}
-          </code>
-        </pre>
+        </Markdown>
 
         <p className="mt-4">
           By using these directives, we can effectively control access and
