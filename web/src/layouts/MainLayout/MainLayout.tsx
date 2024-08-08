@@ -39,6 +39,14 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             How it Works!
           </Link>
           <a
+            href="https://github.com/dthyresson/bedtime-storytime"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-yellow-500"
+          >
+            GitHub
+          </a>
+          <a
             href="https://www.redwoodjs.com"
             target="_blank"
             rel="noreferrer"

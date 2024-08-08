@@ -244,6 +244,19 @@ const AboutPage = () => {
           </li>
         </ul>
 
+        <p className="mt-4">
+          You can find the source code for this app on{' '}
+          <a
+            href="https://github.com/dthyresson/bedtime-storytime"
+            target="_blank"
+            rel="noreferrer"
+            className="text-gray-600 hover:underline"
+          >
+            GitHub
+          </a>
+          .
+        </p>
+
         <h2 className="mb-3 mt-6 text-2xl font-semibold text-gray-900">
           Story Generation
         </h2>
