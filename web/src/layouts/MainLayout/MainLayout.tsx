@@ -78,6 +78,14 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           >
             Unkey
           </a>
+          <a
+            href="https://www.cursor.com"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-yellow-500"
+          >
+            Cursor
+          </a>
         </div>
       </footer>
     </main>

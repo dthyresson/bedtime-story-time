@@ -182,11 +182,36 @@ const Story = ({
                   >
                     🇫🇷 French
                   </button>
+
+                  <button
+                    onClick={() => handleTranslate('it')}
+                    className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
+                  >
+                    🇮🇹 Italian
+                  </button>
+                  <button
+                    onClick={() => handleTranslate('ja')}
+                    className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
+                  >
+                    🇯🇵 Japanese
+                  </button>
                   <button
                     onClick={() => handleTranslate('de')}
                     className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
                   >
                     🇩🇪 German
+                  </button>
+                  <button
+                    onClick={() => handleTranslate('pt')}
+                    className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
+                  >
+                    🇵🇹 Portuguese
+                  </button>
+                  <button
+                    onClick={() => handleTranslate('es')}
+                    className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
+                  >
+                    🇪🇸 Spanish
                   </button>
                   <button
                     onClick={() => handleTranslate('sv')}
