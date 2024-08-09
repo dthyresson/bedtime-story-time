@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 import type { StoriesQuery, StoriesQueryVariables } from 'types/graphql'
 
-import { Link, routes } from '@redwoodjs/router'
 import type {
   // CellSuccessProps,
   CellFailureProps,
@@ -10,12 +9,12 @@ import type {
 } from '@redwoodjs/web'
 import { useQuery } from '@redwoodjs/web'
 
+import LanguageSelector from 'src/components/LanguageSelector'
 import StoryCard from 'src/components/StoryCard/StoryCard'
 
 export const beforeQuery = (props) => {
   return {
     variables: props,
-    // fetchPolicy: 'cache-and-network'
   }
 }
 
@@ -58,14 +57,23 @@ export const QUERY: TypedDocumentNode<
 
 export const Loading = () => <div>Loading...</div>
 
-export const Empty = () => {
+export const Empty = ({ onLanguageChange, currentLanguage }) => {
   return (
     <div>
-      <Link to={routes.stories({ language: 'en' })}>English</Link>
-      <Link to={routes.stories({ language: 'fr' })}>French</Link>
-      <Link to={routes.stories({ language: 'de' })}>German</Link>
-      <Link to={routes.stories({ language: 'es' })}>Spanish</Link>
-      <Link to={routes.stories({ language: 'se' })}>Swedish</Link>
+      <LanguageSelector
+        language={currentLanguage}
+        onLanguageChange={onLanguageChange}
+      />
+      <div className="flex w-full justify-center p-8 lg:mx-auto lg:w-1/2">
+        <button
+          type="button"
+          className="relative block w-full rounded-lg border-2 border-dashed border-yellow-300 p-12 text-center hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >
+          <span className="mt-2 block text-lg font-semibold text-yellow-900">
+            No stories yet in that language.
+          </span>
+        </button>
+      </div>
     </div>
   )
 }
@@ -77,7 +85,7 @@ export const Failure = ({ error }: CellFailureProps) => (
 export const Success = ({ stories, language }) => {
   const [currentLanguage, setCurrentLanguage] = useState(language)
   const [currentPage, setCurrentPage] = useState(stories.page)
-  const { data, loading, error } = useQuery<
+  const { data, loading, error, refetch } = useQuery<
     StoriesQuery,
     StoriesQueryVariables
   >(QUERY, {
@@ -91,7 +99,17 @@ export const Success = ({ stories, language }) => {
   if (loading) return <Loading />
   if (error) return <Failure error={error} />
   if (!data || !data.stories || data.stories.items.length === 0)
-    return <Empty />
+    return (
+      <Empty
+        onLanguageChange={(event) => {
+          const newLanguage = event.target.value
+          setCurrentLanguage(newLanguage)
+          setCurrentPage(1)
+          refetch({ page: 1, language: newLanguage })
+        }}
+        currentLanguage={currentLanguage}
+      />
+    )
 
   const totalPages = Math.ceil(data.stories.count / data.stories.limit)
 
@@ -107,8 +125,9 @@ export const Success = ({ stories, language }) => {
     const newLanguage = event.target.value
     setCurrentLanguage(newLanguage)
     setCurrentPage(1)
-    // refetch({ page: 1, language: newLanguage })
+    refetch({ page: 1, language: newLanguage })
   }
+
   return (
     <>
       <LanguageSelector
@@ -126,18 +145,6 @@ export const Success = ({ stories, language }) => {
         onPageChange={handlePageChange}
       />
     </>
-  )
-}
-
-const LanguageSelector = ({ language, onLanguageChange }) => {
-  return (
-    <select value={language} onChange={onLanguageChange}>
-      <option value="en">English</option>
-      <option value="fr">French</option>
-      <option value="de">German</option>
-      <option value="es">Spanish</option>
-      <option value="se">Swedish</option>
-    </select>
   )
 }
 

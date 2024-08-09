@@ -6,6 +6,8 @@ import { Link, routes, navigate } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
 import { useMutation } from '@redwoodjs/web'
 
+import { languageNames } from 'src/components/LanguageSelector'
+
 type StoryProps = {
   id: string
   activityId: string
@@ -176,49 +178,15 @@ const Story = ({
               </nav>
               {language && language === 'en' && (
                 <div className="mt-4 flex flex-wrap gap-2">
-                  <button
-                    onClick={() => handleTranslate('fr')}
-                    className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
-                  >
-                    🇫🇷 French
-                  </button>
-
-                  <button
-                    onClick={() => handleTranslate('it')}
-                    className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
-                  >
-                    🇮🇹 Italian
-                  </button>
-                  <button
-                    onClick={() => handleTranslate('ja')}
-                    className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
-                  >
-                    🇯🇵 Japanese
-                  </button>
-                  <button
-                    onClick={() => handleTranslate('de')}
-                    className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
-                  >
-                    🇩🇪 German
-                  </button>
-                  <button
-                    onClick={() => handleTranslate('pt')}
-                    className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
-                  >
-                    🇵🇹 Portuguese
-                  </button>
-                  <button
-                    onClick={() => handleTranslate('es')}
-                    className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
-                  >
-                    🇪🇸 Spanish
-                  </button>
-                  <button
-                    onClick={() => handleTranslate('sv')}
-                    className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
-                  >
-                    🇸🇪 Swedish
-                  </button>
+                  {Object.keys(languageNames).map((lang) => (
+                    <button
+                      onClick={() => handleTranslate(lang)}
+                      className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
+                      key={lang}
+                    >
+                      {languageNames[lang]}
+                    </button>
+                  ))}
                 </div>
               )}
             </div>
