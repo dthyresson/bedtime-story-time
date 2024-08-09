@@ -10,6 +10,7 @@ import type {
 import { useQuery } from '@redwoodjs/web'
 
 import LanguageSelector from 'src/components/LanguageSelector'
+import Spinner from 'src/components/Spinner'
 import StoryCard from 'src/components/StoryCard/StoryCard'
 
 export const beforeQuery = (props) => {
@@ -55,7 +56,7 @@ export const QUERY: TypedDocumentNode<
   }
 `
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => <Spinner caption="Loading stories..." />
 
 export const Empty = ({ onLanguageChange, currentLanguage }) => {
   return (

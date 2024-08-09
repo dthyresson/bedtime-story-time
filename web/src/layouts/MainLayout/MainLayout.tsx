@@ -22,7 +22,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           </Link>
         </nav>
       </header>
-      {children}
+      <main className="min-h-[calc(100vh-10rem)]">{children}</main>
       <footer className="flex items-center justify-between py-4">
         <div className="text-sm text-gray-500">
           <a

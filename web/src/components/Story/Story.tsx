@@ -7,6 +7,7 @@ import { Metadata } from '@redwoodjs/web'
 import { useMutation } from '@redwoodjs/web'
 
 import { languageNames } from 'src/components/LanguageSelector'
+import Spinner from 'src/components/Spinner'
 
 type StoryProps = {
   id: string
@@ -80,15 +81,7 @@ const Story = ({
         description={`${summary}`}
         ogImage={pictureUrl}
       />
-      {translating && (
-        <div className="flex h-[80vh] items-center justify-center bg-yellow-100">
-          <div className="flex h-full items-center justify-center">
-            <p className="animate-pulse text-xl font-bold text-black">
-              Translating ...
-            </p>
-          </div>
-        </div>
-      )}
+      {translating && <Spinner caption="Translating story..." />}
       {!translating && (
         <div className="flex flex-col gap-4 rounded-md border border-gray-200 bg-yellow-100 p-4 lg:flex-row">
           <div className="flex w-full flex-col gap-4 lg:w-1/2">
@@ -178,15 +171,18 @@ const Story = ({
               </nav>
               {language && language === 'en' && (
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {Object.keys(languageNames).map((lang) => (
-                    <button
-                      onClick={() => handleTranslate(lang)}
-                      className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
-                      key={lang}
-                    >
-                      {languageNames[lang]}
-                    </button>
-                  ))}
+                  {Object.keys(languageNames).map(
+                    (lang) =>
+                      lang !== 'en' && (
+                        <button
+                          onClick={() => handleTranslate(lang)}
+                          className="flex items-center gap-1 rounded-md border border-yellow-300 bg-white px-2 py-1 text-sm shadow-md hover:bg-yellow-50"
+                          key={lang}
+                        >
+                          {languageNames[lang]}
+                        </button>
+                      )
+                  )}
                 </div>
               )}
             </div>

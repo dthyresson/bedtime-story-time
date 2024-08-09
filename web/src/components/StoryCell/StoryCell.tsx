@@ -6,6 +6,7 @@ import type {
   TypedDocumentNode,
 } from '@redwoodjs/web'
 
+import Spinner from 'src/components/Spinner'
 import Story from 'src/components/Story/Story'
 
 export const QUERY: TypedDocumentNode<
@@ -50,7 +51,7 @@ export const QUERY: TypedDocumentNode<
   }
 `
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => <Spinner caption="Loading story..." />
 
 export const Empty = () => <div>Empty</div>
 
