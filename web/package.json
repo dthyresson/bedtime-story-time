@@ -11,9 +11,9 @@
     ]
   },
   "dependencies": {
-    "@redwoodjs/forms": "7.7.3",
-    "@redwoodjs/router": "7.7.3",
-    "@redwoodjs/web": "7.7.3",
+    "@redwoodjs/forms": "7.7.4",
+    "@redwoodjs/router": "7.7.4",
+    "@redwoodjs/web": "7.7.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "9.0.1",
@@ -21,7 +21,7 @@
     "sentence-splitter": "^5.0.0"
   },
   "devDependencies": {
-    "@redwoodjs/vite": "7.7.3",
+    "@redwoodjs/vite": "7.7.4",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@types/react-syntax-highlighter": "15",

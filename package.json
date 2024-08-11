@@ -7,8 +7,9 @@
     ]
   },
   "devDependencies": {
-    "@redwoodjs/core": "7.7.3",
-    "@redwoodjs/project-config": "7.7.3",
+    "@prisma/client": "5.18.0",
+    "@redwoodjs/core": "7.7.4",
+    "@redwoodjs/project-config": "7.7.4",
     "prettier-plugin-tailwindcss": "0.4.1",
     "zlib": "^1.0.5"
   },
