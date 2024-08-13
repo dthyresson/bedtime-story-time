@@ -1,4 +1,4 @@
-const languages = ['de', 'en', 'es', 'fr', 'it', 'ja', 'se', 'alien']
+const languages = ['de', 'en', 'es', 'fr', 'it', 'ja', 'sv', 'alien']
 export const languageNames = {
   de: '🇩🇪 German',
   en: '🇬🇧 English',
@@ -6,8 +6,8 @@ export const languageNames = {
   fr: '🇫🇷 French',
   it: '🇮🇹 Italian',
   ja: '🇯🇵 Japanese',
-  se: '🇸🇪 Swedish',
-  alien: '👽 Alien',
+  sv: '🇸🇪 Swedish',
+  // alien: '👽 Alien',
 }
 const LanguageSelector = ({ language, onLanguageChange }) => {
   if (!language || language === '') {

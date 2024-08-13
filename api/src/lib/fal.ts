@@ -56,7 +56,10 @@ export const generatePictureFeomSentence = async ({
   animal: string
   color: string
 }) => {
-  const prompt = `Illustrate: In ${adjective} children's story style. Context: "${summary}" Scene: "${scene}. Paint the ${animal} the color ${color}."`
+  const prompt = `Illustrate: In ${adjective} children's story style.
+  Context: "${summary}".
+  Scene: "${scene}."
+  Note: Paint the ${animal} the color ${color}.`
 
   logger.debug(prompt, '>> prompt')
 
