@@ -17,9 +17,8 @@ export const generatePictureUrl = async ({
   animal: string
   color: string
 }) => {
-  const prompt = `
-    Illustrate: "${description}". In ${adjective} children's story style. Paint the ${animal} the color ${color}.
-  `
+  const prompt = `Illustrate: "${description}". In ${adjective} children's story style. Paint the ${animal} the color ${color}.
+`
   logger.debug(prompt, '>> prompt')
 
   const falModel = 'flux/schnell'
