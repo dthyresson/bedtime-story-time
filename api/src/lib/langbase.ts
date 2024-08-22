@@ -22,7 +22,6 @@ export const bedtimeStoryWriter = async ({
   })
 
   const options = {
-    stream: false,
     variables: [
       {
         name: 'adjective',
@@ -81,7 +80,6 @@ export const bedtimeStoryPicture = async ({
   })
 
   const options = {
-    stream: false,
     variables: [
       { name: 'adjective', value: adjective },
       { name: 'animal', value: animal },
@@ -128,7 +126,6 @@ export const bedtimeStoryTranslator = async ({
   })
 
   const options = {
-    stream: false,
     variables: [
       { name: 'title', value: title },
       { name: 'summary', value: summary },
