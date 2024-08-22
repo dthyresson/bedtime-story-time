@@ -97,6 +97,14 @@ export interface Mutation {
   updateStory: Story
 }
 
+export interface PaginatedItems {
+  __typename?: 'PaginatedItems'
+  count: number
+  language: string
+  limit: number
+  page: number
+}
+
 export interface PaginatedStories {
   __typename?: 'PaginatedStories'
   count: number

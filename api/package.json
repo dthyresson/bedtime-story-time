@@ -3,13 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@fal-ai/serverless-client": "^0.14.0",
+    "@fal-ai/serverless-client": "0.14.2",
     "@prisma/client": "5.18.0",
     "@redwoodjs/api": "7.7.4",
     "@redwoodjs/graphql-server": "7.7.4",
     "@types/pdfkit": "0.13.4",
     "@unkey/ratelimit": "0.4.1",
-    "langbase": "0.2.5",
+    "langbase": "0.6.0",
     "pdfkit": "0.15.0",
     "prisma": "5.18.0"
   }

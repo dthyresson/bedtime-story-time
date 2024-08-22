@@ -19,7 +19,14 @@ export const schema = gql`
     activity: Activity!
   }
 
-  type PaginatedStories {
+  interface PaginatedItems {
+    count: Int!
+    page: Int!
+    limit: Int!
+    language: String!
+  }
+
+  type PaginatedStories implements PaginatedItems {
     items: [Story!]!
     count: Int!
     page: Int!

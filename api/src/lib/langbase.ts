@@ -1,4 +1,5 @@
-// import { Pipe } from 'langbase'
+import { Pipe } from 'langbase'
+
 import { logger } from 'src/lib/logger'
 
 export const bedtimeStoryWriter = async ({
@@ -16,10 +17,11 @@ export const bedtimeStoryWriter = async ({
     throw new Error('BEDTIME_STORY_WRITER_PIPE_API_KEY is not set')
   }
 
-  const url = 'https://api.langbase.com/beta/generate'
-  const auth = `Bearer ${process.env.BEDTIME_STORY_WRITER_PIPE_API_KEY}`
+  const pipe = new Pipe({
+    apiKey: process.env.BEDTIME_STORY_WRITER_PIPE_API_KEY,
+  })
 
-  const data = {
+  const options = {
     stream: false,
     variables: [
       {
@@ -41,35 +43,19 @@ export const bedtimeStoryWriter = async ({
     ],
   }
 
-  logger.debug(data, '>> bedtimeStoryWriter data')
+  logger.debug(options, '>> bedtimeStoryWriter options')
 
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: auth,
-  }
-  const body = JSON.stringify(data)
+  try {
+    const { completion } = await pipe.generateText(options)
 
-  logger.debug({ headers, body }, '>> bedtimeStoryWriter request data')
-
-  const response = await fetch(url, {
-    method: 'POST',
-    headers,
-    body,
-  })
-
-  if (!response.ok) {
-    console.error({ response }, 'Bad response from bedtimeStoryWriter')
-    throw new Error('Bad response from bedtimeStoryWriter')
-  }
-
-  if (response.ok) {
-    const { completion } = await response.json()
-    logger.debug(completion, '>> bedtimeStoryWriter result')
-    try {
-      return JSON.parse(completion)
-    } catch (error) {
-      logger.error(error, '>> bedtimeStoryWriter error')
+    if (!completion) {
+      throw new Error('Bad response from bedtimeStoryWriter')
     }
+
+    logger.debug(completion, '>> bedtimeStoryWriter result')
+    return JSON.parse(completion)
+  } catch (error) {
+    logger.error(error, '>> bedtimeStoryWriter error')
   }
 
   throw new Error('Failed to generate bedtime story')
@@ -90,9 +76,11 @@ export const bedtimeStoryPicture = async ({
     throw new Error('BEDTIME_STORY_PICTURE_PIPE_API_KEY is not set')
   }
 
-  const url = 'https://api.langbase.com/beta/generate'
-  const auth = `Bearer ${process.env.BEDTIME_STORY_PICTURE_PIPE_API_KEY}`
-  const data = {
+  const pipe = new Pipe({
+    apiKey: process.env.BEDTIME_STORY_PICTURE_PIPE_API_KEY,
+  })
+
+  const options = {
     stream: false,
     variables: [
       { name: 'adjective', value: adjective },
@@ -101,34 +89,18 @@ export const bedtimeStoryPicture = async ({
       { name: 'summary', value: summary },
     ],
   }
+  try {
+    const { completion } = await pipe.generateText(options)
 
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: auth,
-  }
-  const body = JSON.stringify(data)
-
-  logger.debug({ headers, body }, '>> bedtimeStoryPicture request data')
-
-  const response = await fetch(url, {
-    method: 'POST',
-    headers,
-    body,
-  })
-
-  if (!response.ok) {
-    console.error('Failed to generate bedtime picture instructions')
-    return
-  }
-
-  if (response.ok) {
-    const { completion } = await response.json()
-    logger.debug(completion, '>> bedtimeStoryPicture result')
-    try {
-      return JSON.parse(completion)
-    } catch (error) {
-      logger.error(error, '>> bedtimeStoryPicture error')
+    if (!completion) {
+      console.error('Failed to generate bedtime picture instructions')
+      return
     }
+
+    logger.debug(completion, '>> bedtimeStoryPicture result')
+    return JSON.parse(completion)
+  } catch (error) {
+    logger.error(error, '>> bedtimeStoryPicture error')
   }
 
   throw new Error('Failed to generate bedtime picture instructions')
@@ -151,10 +123,11 @@ export const bedtimeStoryTranslator = async ({
     throw new Error('BEDTIME_STORY_TRANSLATOR_PIPE_API_KEY is not set')
   }
 
-  const url = 'https://api.langbase.com/beta/generate'
-  const auth = `Bearer ${process.env.BEDTIME_STORY_TRANSLATOR_PIPE_API_KEY}`
+  const pipe = new Pipe({
+    apiKey: process.env.BEDTIME_STORY_TRANSLATOR_PIPE_API_KEY,
+  })
 
-  const data = {
+  const options = {
     stream: false,
     variables: [
       { name: 'title', value: title },
@@ -164,26 +137,19 @@ export const bedtimeStoryTranslator = async ({
       { name: 'language', value: language },
     ],
   }
+  try {
+    const { completion } = await pipe.generateText(options)
 
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: auth,
-  }
-  const body = JSON.stringify(data)
+    if (!completion) {
+      throw new Error('Failed to translate story')
+    }
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers,
-    body,
-  })
+    logger.debug(completion, '>> bedtimeStoryTranslator completion')
 
-  if (!response.ok) {
-    throw new Error('Failed to translate story')
+    return JSON.parse(completion)
+  } catch (error) {
+    logger.error(error, '>> bedtimeStoryTranslator error')
   }
 
-  const { completion } = await response.json()
-
-  logger.debug(completion, '>> bedtimeStoryTranslator result')
-
-  return JSON.parse(completion)
+  throw new Error('Failed to translate bedtime story')
 }
