@@ -1,7 +1,9 @@
 import { Link, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
+import { LangBase } from '@langbase/sdk'
 
 import Markdown from 'src/components/Markdown/Markdown'
+import Mermaid from 'src/components/Mermaid/Mermaid'
 
 import AboutCard from './AboutCard'
 
@@ -266,6 +268,8 @@ const AboutPage = () => {
         </p>
         <Markdown>
           {`\`\`\`ts
+import { LangBase } from '@langbase/sdk'
+
 export const bedtimeStoryWriter = async ({
   adjective,
   animal,
@@ -277,27 +281,21 @@ export const bedtimeStoryWriter = async ({
   color: string
   activity: string
 }) => {
-  // Langbase API call to generate the story
-  const response = await fetch('https://api.langbase.com/beta/generate', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: \`Bearer \${process.env.BEDTIME_STORY_WRITER_PIPE_API_KEY}\`,
-    },
-    body: JSON.stringify({
-      stream: false,
-      variables: [
-        { name: 'adjective', value: adjective },
-        { name: 'animal', value: animal },
-        { name: 'color', value: color },
-        { name: 'activity', value: activity },
-      ],
-    }),
+  const langbase = new LangBase({
+    apiKey: process.env.BEDTIME_STORY_WRITER_PIPE_API_KEY,
   })
 
-  if (response.ok) {
-    const { completion } = await response.json()
-    return JSON.parse(completion)
+  const result = await langbase.generate({
+    variables: {
+      adjective,
+      animal,
+      color,
+      activity,
+    },
+  })
+
+  if (result.success) {
+    return JSON.parse(result.completion)
   }
 
   throw new Error('Failed to generate bedtime story')
@@ -308,6 +306,38 @@ export const bedtimeStoryWriter = async ({
           This function sends your chosen story elements to our Langbase AI
           model, which then crafts a unique, engaging story. The result includes
           a title, summary, and the full story text.
+        </p>
+
+        <h2 className="mb-3 mt-6 text-2xl font-semibold text-gray-900">
+          Bedtime Story Writing Process
+        </h2>
+        <p className="mb-4">
+          Here's a visual representation of the bedtime story writing process:
+        </p>
+        <Markdown>
+          {`\`\`\`mermaid
+graph TD
+    A[Start] --> B[Choose Story Elements]
+    B --> C[Generate Story with LangBase]
+    C --> D[Parse Story JSON]
+    D --> E[Generate Image Prompt]
+    E --> F[Create Image with Fal.ai]
+    F --> G[Combine Story and Image]
+    G --> H[Display Final Story]
+    H --> I[End]
+
+    subgraph "Story Elements"
+    J[Adjective]
+    K[Animal]
+    L[Color]
+    M[Activity]
+    end
+
+    B --> J & K & L & M
+\`\`\``}
+        </Markdown>
+        <p className="mt-4">
+          This diagram illustrates the flow from choosing story elements to the final story display.
         </p>
 
         <h2 className="mb-3 mt-6 text-2xl font-semibold">Image Generation</h2>
