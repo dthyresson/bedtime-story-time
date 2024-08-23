@@ -264,8 +264,14 @@ const AboutPage = () => {
           The heart of Bedtime Storytime lies in its AI-powered story
           generation. Here&apos;s a glimpse into how we create each unique tale:
         </p>
+        <p className="mb-4">
+          The prompt, model used, and variables is kept with the Langbase Pipe.
+        </p>
         <Markdown>
           {`\`\`\`ts
+import { Pipe } from 'langbase'
+import { logger } from 'src/lib/logger'
+
 export const bedtimeStoryWriter = async ({
   adjective,
   animal,
@@ -277,37 +283,90 @@ export const bedtimeStoryWriter = async ({
   color: string
   activity: string
 }) => {
-  // Langbase API call to generate the story
-  const response = await fetch('https://api.langbase.com/beta/generate', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: \`Bearer \${process.env.BEDTIME_STORY_WRITER_PIPE_API_KEY}\`,
-    },
-    body: JSON.stringify({
-      stream: false,
-      variables: [
-        { name: 'adjective', value: adjective },
-        { name: 'animal', value: animal },
-        { name: 'color', value: color },
-        { name: 'activity', value: activity },
-      ],
-    }),
-  })
-
-  if (response.ok) {
-    const { completion } = await response.json()
-    return JSON.parse(completion)
+  if (!process.env.BEDTIME_STORY_WRITER_PIPE_API_KEY) {
+    throw new Error('BEDTIME_STORY_WRITER_PIPE_API_KEY is not set')
   }
 
-  throw new Error('Failed to generate bedtime story')
+  const pipe = new Pipe({
+    apiKey: process.env.BEDTIME_STORY_WRITER_PIPE_API_KEY,
+  })
+
+  const options = {
+    variables: [
+      { name: 'adjective', value: adjective },
+      { name: 'animal', value: animal },
+      { name: 'color', value: color },
+      { name: 'activity', value: activity },
+    ],
+  }
+
+  try {
+    const { completion } = await pipe.generateText(options)
+
+    if (!completion) {
+      throw new Error('Bad response from bedtimeStoryWriter')
+    }
+
+    return JSON.parse(completion)
+  } catch (error) {
+    logger.error(error, '>> bedtimeStoryWriter error')
+    throw new Error('Failed to generate bedtime story')
+  }
 }`}
         </Markdown>
 
         <p className="mt-4">
-          This function sends your chosen story elements to our Langbase AI
-          model, which then crafts a unique, engaging story. The result includes
-          a title, summary, and the full story text.
+          This function uses the LangBase SDK to interact with our AI model. It
+          sends the chosen story elements to a predefined Pipe, which then
+          crafts a unique, engaging story. The result includes a title, summary,
+          and the full story text. JSON is parsed because of OpenAI&apos;s
+          structured output format. The story is then saved to the database and
+          can be viewed in the stories list.
+        </p>
+
+        <h2 className="mb-3 mt-6 text-2xl font-semibold">
+          Bedtime Story Writing Process
+        </h2>
+        <p className="mb-4">
+          Here&apos;s a flow diagram illustrating the process from selecting
+          story elements to viewing the final story:
+        </p>
+
+        <Markdown>
+          {`\`\`\`mermaid
+graph TD
+    A[User Input] --> B[Select Adjective]
+    A --> C[Select Animal]
+    A --> D[Select Color]
+    A --> E[Select Activity]
+
+    B & C & D & E --> F[Send to bedtimeStoryWriter]
+
+    F --> G[LangBase Pipe]
+    G --> H[Generate Story]
+    H --> I[Parse Story JSON]
+
+    I --> J[Extract Image Description]
+    J --> K[Fal.ai Image Generation]
+
+    I --> L[Story Text]
+    K --> M[Generated Image]
+
+    L & M --> N[Save to Database]
+    N --> O[Display Final Story]
+
+    style A fill:#f9d71c,stroke:#333,stroke-width:2px
+    style G fill:#ff9900,stroke:#333,stroke-width:2px
+    style K fill:#3498db,stroke:#333,stroke-width:2px
+    style N fill:#2ecc71,stroke:#333,stroke-width:2px
+    style O fill:#e74c3c,stroke:#333,stroke-width:2px
+\`\`\`
+`}
+        </Markdown>
+
+        <p className="mt-4">
+          This process ensures that each story is uniquely tailored to the
+          users&apos; choices, creating a personalized and engaging experience.
         </p>
 
         <h2 className="mb-3 mt-6 text-2xl font-semibold">Image Generation</h2>
